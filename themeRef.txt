@@ -1,0 +1,5 @@
+blue: #50AFAA
+green: #1D9831
+black: #020404
+white: #FEFEFF
+yellow: #F1DF28

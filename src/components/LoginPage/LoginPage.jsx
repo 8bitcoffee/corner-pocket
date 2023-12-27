@@ -7,6 +7,7 @@ function LoginPage() {
 
   return (
     <div>
+      <img id="landing-logo" src={'./img/corner-pocket_624x624.png'} alt={'logo'}/>
       <LoginForm />
 
       <center>

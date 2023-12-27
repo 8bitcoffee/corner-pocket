@@ -78,3 +78,29 @@ Grid
   flex-basis: 100%;
   max-width: 100%;
 }
+
+#register-btn {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#landing-logo {
+  display: block;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#register-form {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+#login-form {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}

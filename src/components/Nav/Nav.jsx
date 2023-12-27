@@ -10,7 +10,8 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <img id="header-logo" src={"./img/8ball.png"} alt={"logo"}/>
+        <p className="nav-title">Corner Pocket</p>
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
