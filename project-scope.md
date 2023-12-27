@@ -104,7 +104,7 @@ Used in stretch goals
 
 | **Complete** | **Milestone**                   | **Hours Est** | **Due Date** | **Base or Stretch** |
 |--------------|---------------------------------|---------------|--------------|---------------------|
-| ☐            | Component scaffolding           | 2             | 12/24        | Base                |
+| ☑            | Component scaffolding           | 2             | 12/24        | Base                |
 | ☐            | Make the login page.            | 4             | 12/27        | Base                |
 | ☐            | Router and query building       | 8             | 1/3          | Base                |
 | ☐            | Initial league creation process | 8             | 1/3          | Base                |
