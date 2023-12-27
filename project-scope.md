@@ -118,8 +118,6 @@ Used in stretch goals
 | ☐            | Google Account sign-in          | 8             | 1/21         | Stretch             |
 | ☐            | Recover password                | 6             | 1/24         | Stretch             |
 
-#  
-
 # Database Documentation
 
 [Database diagram:
