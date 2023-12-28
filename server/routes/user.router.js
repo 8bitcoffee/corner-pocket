@@ -20,11 +20,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
 
-  const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING id`;
+  const queryText = `INSERT INTO "user" (username, password, first_name, last_name)
+    VALUES ($1, $2, $3, $4) RETURNING id`;
   pool
-    .query(queryText, [username, password])
+    .query(queryText, [username, password, firstName, lastName])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);
@@ -45,6 +47,32 @@ router.post('/logout', (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+router.put('/', (req,res) => {
+  const id = req.body.id;
+  const username = req.body.username;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const address = req.body.address;
+  const address2 = req.body.address2;
+  const city  = req.body.city;
+  const state = req.body.state;
+  const zip = req.body.zip;
+  const phone = req.body.phone;
+
+  const queryText = `
+    UPDATE "user"
+    SET (username, first_name, last_name, address_1, address_2, city, state, zip, phone) = ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    WHERE "id" = $10;
+  `;
+
+  pool.query(queryText,[username, firstName, lastName, address, address2, city, state, zip, phone, id])
+    .then(() => res.sendStatus(200))
+    .catch((error) => {
+      console.error("Error in PUT to update user info", error);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

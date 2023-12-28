@@ -3,9 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin: 0 0 30px;
-  background-color: #00acb0;
+  background-color: #1D9831;
   overflow: hidden;
 }
 
@@ -14,17 +13,18 @@
 }
 
 .nav-title {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
-  color: #f2f2f2;
+  color: #FEFEFF;
   padding-left: 10px;
   margin: 0;
+  padding-bottom: 5px;
 }
 
 .navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: #FEFEFF;
+  background-color: #1D9831;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -38,5 +38,10 @@
 }
 
 .navLink:hover {
-  background-color: #008183;
+  background-color: #1D9831;
+}
+
+#header-logo{
+  width:70px;
+  padding:5px;
 }

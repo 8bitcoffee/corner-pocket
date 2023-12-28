@@ -27,6 +27,12 @@ const registrationMessage = (state = '', action) => {
       return 'Choose a username and password!';
     case 'REGISTRATION_FAILED':
       return "Oops! That didn't work. The username might already be taken. Try again!";
+    case 'PASSWORD_MATCH_FAIL':
+      return "Passwords do not match.";
+    case 'PASSWORD_CRITERIA_FAIL':
+      return `Password must be 8-24 characters containing a capital letter, a lowercase letter, a number, and a symbol !@#$%^&*?.`;
+    case 'USERNAME_NOT_EMAIL':
+      return "Username must be a valid email"
     default:
       return state;
   }
