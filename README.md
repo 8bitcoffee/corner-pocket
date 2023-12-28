@@ -1,121 +1,153 @@
 
-# Prime Solo Project Starting Repo
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+# J Read - Corner Pocket App
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+2023-12-18 \| Taaffeite cohort
 
-## Use the Template for This Repository (Don't Clone)
+# Application Overview
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+Corner pocket is designed to be a league manager for local leagues. Most
+pickup leagues have to rely on paper and word of mouth to coordinate,
+score, and declare winners. Corner pocket is designed to take the
+guesswork out of the equation. Select your sport, tournament type, and
+then invite your friends to join the league. For proof of concept, I'm
+designing it for use in 8-ball billiards 5-man teams to apply it to an
+existing league. However the database structure should allow it to apply
+to almost any sport/activity with a few tweaks. The centerpiece is a
+scoring app to keep track of the games themselves.
+
+#  
+
+# Functional Requirements
+
+## 1.1 Log-in (Desktop)
+
+> ![](public/img/image11.png){width="5.880208880139983in"
+> height="3.604371172353456in"}
+>
+> Registered users will be able to log in to the application. The
+> **Log-in** page will contain a link to the **Registration** page (no
+> wireframe included). **Registration** will contain text inputs for
+> username and password. The **Registration** page will also contain a
+> button that navigates the user back to the **Log-in** screen and a
+> button that will submit the form. After successful form submission,
+> the user will automatically be logged in with the new account. While a
+> desktop version exists, the application itself is optimized for
+> mobile.
+>
+> Forgot password will not be included in this project.
+
+##  
+
+## 1.1 Log-in (Mobile)
+
+![](public/img/image12.png)
 
 
-## Prerequisites
+## 1.2 Display List of Widgets
 
-Before you get started, make sure you have the following software installed on your computer:
+> There are 4 main sections of the app with a few subsections as well
+> that can be replicated across the application.
+>
+> The Home page has three options depending on the current status of the
+> user.
 
-- [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
-- [Nodemon](https://nodemon.io/)
+1.  Home view - logged in and with an active league
 
-## Create database and table
+> ![](public/img/image1.png)
 
-Create a new database called `prime_app` and create a `user` table:
+2.  Home view - logged in without an active league.
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+> ![](public/img/image8.png)
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+3.  Home view - not logged in
 
-## Development Setup Instructions
+> ![](public/img/image7.png)
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+4.  Team roster - Clicking on a name opens a detail view with contact
+    info and stats
 
-## Debugging
+> ![](public/img/image4.png)
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+5.  Stats
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+> ![](public/img/image3.png)
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+6.  Scoring app - Set lineup view (for team captains). Once the lineup
+    is set, for each team, the match can begin.
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+> ![](public/img/image10.png)
 
-## Testing Routes with Postman
+7.  Scoring app - Match View
 
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
+> ![](public/img/image9.png)
 
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
+8.  Scoring app - Round view
 
-1. Start the server - `npm run server`
-2. Import the sample routes JSON file [v2](./PostmanPrimeSoloRoutesv2.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
+> ![](public/img/image2.png)
 
-After running the login route above, you can try any other route you've created that requires a logged in user!
+9.  Last will be a schedule view as a stretch goal. Be able to see at a
+    glance all the upcoming matchup time/date/locations.
 
-## Production Build
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
+# 3rd Party APIs
 
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
+Used in stretch goals
 
-## Lay of the Land
+-   Google sign-in
+    [[https://developers.google.com/identity/sign-in/ios/start]{.underline}](https://developers.google.com/identity/sign-in/ios/start)
 
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
+-   Google Calendar integration
 
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
+-   Google Maps embedding
 
-Directory Structure:
+# Project Milestones and Schedule
 
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
+| **Complete** | **Milestone**                   | **Hours Est** | **Due Date** | **Base or Stretch** |
+|--------------|---------------------------------|---------------|--------------|---------------------|
+| ☑            | Component scaffolding           | 2             | 12/24        | Base                |
+| ☑            | Make the login page.            | 4             | 12/27        | Base                |
+| ☐            | Router and query building       | 8             | 1/3          | Base                |
+| ☐            | Initial league creation process | 8             | 1/3          | Base                |
+| ☐            | Stats and Team views            | 8             | 1/6          | Base                |
+| ☐            | Scoring app - Set lineup        | 4             | 1/8          | Base                |
+| ☐            | Scoring app - Round view        | 4             | 1/8          | Base                |
+| ☐            | Scoring app - Match view        | 4             | 1/10         | Base                |
+| ☐            | Conditional styling             | 4             | 1/12         | Base                |
+| ☐            | Comments and README             | 4             | 1/16         | Base                |
+| ☐            | Calendar view                   | 8             | 1/18         | Stretch             |
+| ☐            | Google Account sign-in          | 8             | 1/21         | Stretch             |
+| ☐            | Recover password                | 6             | 1/24         | Stretch             |
 
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
+# Database Documentation
 
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
+[Database diagram:
+[[https://drawsql.app/teams/8bit-heroes/diagrams/corner-pocket]{.underline}](https://drawsql.app/teams/8bit-heroes/diagrams/corner-pocket)]{.mark}
 
-## Deployment
+![](public/img/image6.png)
 
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
+#  
 
-## Update Documentation
+# Browsers
 
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+Application will fully support browsers listed below. All browsers or
+versions not listed below are considered out of scope.
+
+| **Browser Name** | **Mobile or Desktop?** | **Version**     |
+|------------------|------------------------|-----------------|
+| Chrome Mobile    | Mobile - iOS           | Version 120.0.6 |
+
+# Technologies
+
+-   Node.js
+
+-   Express.js
+
+-   React.js
+
+-   Postgresql
+
+-   AWS Amplify
+
+-   AWS S3
+
+-   AWS Route 53
