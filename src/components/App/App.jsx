@@ -14,6 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
+import Home from '../Home/Home';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
@@ -29,7 +30,8 @@ function App() {
   const user = useSelector(store => store.user);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({type: 'FETCH_USER'});
+    dispatch({type: 'FETCH_LEAGUES'})
   }, [dispatch]);
 
   return (
@@ -104,7 +106,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/homepage" />
               :
               // Otherwise, show the Landing page
               <LandingPage />
@@ -112,6 +114,9 @@ function App() {
           </Route>
           <Route exact path="/EditUser">
             <EditUserPage/>
+          </Route>
+          <Route exact path="/homepage">
+            <Home/>
           </Route>
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

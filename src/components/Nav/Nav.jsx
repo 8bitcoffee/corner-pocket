@@ -9,7 +9,7 @@ function Nav() {
 
   return (
     <div className="nav">
-      <Link to="/home">
+      <Link to="/homepage">
         <img id="header-logo" src={"./img/8ball.png"} alt={"logo"}/>
         <p className="nav-title">Corner Pocket</p>
       </Link>
@@ -25,7 +25,7 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/homepage">
               Home
             </Link>
 
