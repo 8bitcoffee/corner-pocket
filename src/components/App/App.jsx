@@ -22,7 +22,9 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
-import EditUserPage from '../EditUserPage/EditUserPage';
+import EditUserPage from '../EditUserPage/EditUserPage.jsx';
+import CreateLeague from '../CreateLeague/CreateLeague.jsx';
+import JoinLeague from '../JoinLeague/JoinLeague.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +73,26 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // Update user info
+            exact
+            path="/EditUser"
+          >
+            <EditUserPage/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/homepage">
+            <Home/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/createLeague">
+            <CreateLeague/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/joinLeague">
+            <JoinLeague/>
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"
@@ -112,12 +134,7 @@ function App() {
               <LandingPage />
             }
           </Route>
-          <Route exact path="/EditUser">
-            <EditUserPage/>
-          </Route>
-          <Route exact path="/homepage">
-            <Home/>
-          </Route>
+          
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

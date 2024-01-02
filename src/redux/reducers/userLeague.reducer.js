@@ -1,4 +1,4 @@
-const userLeague = (state = {}, action) => {
+const userLeague = (state = [], action) => {
     switch (action.type) {
         case 'SET_LEAGUES':
           return action.payload;

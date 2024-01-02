@@ -6,9 +6,6 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-/**
- * GET route template
- */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `
         SELECT * FROM "teams"
