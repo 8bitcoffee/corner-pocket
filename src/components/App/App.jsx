@@ -14,6 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
+import Home from '../Home/Home';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
@@ -21,7 +22,9 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
-import EditUserPage from '../EditUserPage/EditUserPage';
+import EditUserPage from '../EditUserPage/EditUserPage.jsx';
+import CreateLeague from '../CreateLeague/CreateLeague.jsx';
+import JoinLeague from '../JoinLeague/JoinLeague.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +32,8 @@ function App() {
   const user = useSelector(store => store.user);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({type: 'FETCH_USER'});
+    dispatch({type: 'FETCH_LEAGUES'})
   }, [dispatch]);
 
   return (
@@ -69,6 +73,26 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // Update user info
+            exact
+            path="/EditUser"
+          >
+            <EditUserPage/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/homepage">
+            <Home/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/createLeague">
+            <CreateLeague/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/joinLeague">
+            <JoinLeague/>
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"
@@ -104,15 +128,13 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/homepage" />
               :
               // Otherwise, show the Landing page
               <LandingPage />
             }
           </Route>
-          <Route exact path="/EditUser">
-            <EditUserPage/>
-          </Route>
+          
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

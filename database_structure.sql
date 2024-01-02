@@ -13,18 +13,9 @@ CREATE TABLE "rounds"(
     "round_winner" BIGINT
 );
 
-CREATE TABLE "tournament_types"(
-    "id" SERIAL PRIMARY KEY,
-    "playoffs" BOOLEAN NOT NULL,
-    "playoff_num" INT NOT NULL,
-    "tournament_type_name" VARCHAR(255) NOT NULL,
-    "num_matchups" INT NOT NULL
-);
-
 CREATE TABLE "activities"(
     "id" SERIAL PRIMARY KEY,
-    "activity" VARCHAR(255) NOT NULL,
-    "scoresheet" INT NOT NULL
+    "activity" VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE "games"(
@@ -43,7 +34,10 @@ CREATE TABLE "tournaments"(
     "id" SERIAL PRIMARY KEY,
     "tournament_name" VARCHAR(255) NOT NULL,
     "league_id" BIGINT NOT NULL,
-    "tournament_type" BIGINT NOT NULL
+    "bracket" BOOLEAN NOT NULL,
+    "num_teams" INT NOT NULL,
+    "playoffs" BOOLEAN NOT NULL,
+    "playoff_num" INT NOT NULL
 );
 
 CREATE TABLE "locations"(
@@ -111,16 +105,18 @@ CREATE TABLE "teams"(
     "league_id" BIGINT NOT NULL
 );
 
+CREATE TABLE "users_teams" (
+    "id" SERIAL PRIMARY KEY,
+    "user_id" BIGINT NOT NULL,
+    "team_id" BIGINT NOT NULL
+);
+
 ALTER TABLE
     "matchups" ADD CONSTRAINT "matchups_location_id_foreign" FOREIGN KEY("location_id") REFERENCES "locations"("id");
-ALTER TABLE
-    "tournaments" ADD CONSTRAINT "tournaments_tournament_type_foreign" FOREIGN KEY("tournament_type") REFERENCES "tournament_types"("id");
 ALTER TABLE
     "teams" ADD CONSTRAINT "teams_league_id_foreign" FOREIGN KEY("league_id") REFERENCES "leagues"("id");
 ALTER TABLE
     "games" ADD CONSTRAINT "games_away_player_foreign" FOREIGN KEY("away_player") REFERENCES "user"("id");
-ALTER TABLE
-    "activities" ADD CONSTRAINT "activities_scoresheet_foreign" FOREIGN KEY("scoresheet") REFERENCES "scoresheets"("id");
 ALTER TABLE
     "leagues" ADD CONSTRAINT "leagues_activity_id_foreign" FOREIGN KEY("activity_id") REFERENCES "activities"("id");
 ALTER TABLE
