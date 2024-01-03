@@ -43,12 +43,12 @@ CREATE TABLE "tournaments"(
 CREATE TABLE "locations"(
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
-    "address_1" VARCHAR(255) NOT NULL,
+    "address_1" VARCHAR(255),
     "address_2" VARCHAR(255),
-    "city" VARCHAR(255) NOT NULL,
-    "state" VARCHAR(255) NOT NULL,
-    "country" VARCHAR(255) NOT NULL,
-    "zip" VARCHAR(255) NOT NULL
+    "city" VARCHAR(255),
+    "state" VARCHAR(255),
+    "country" VARCHAR(255),
+    "zip" VARCHAR(255)
 );
 
 CREATE TABLE "leagues"(
@@ -141,3 +141,15 @@ ALTER TABLE
     "leagues" ADD CONSTRAINT "leagues_authorized_user_id_foreign" FOREIGN KEY("authorized_user_id") REFERENCES "user"("id");
 ALTER TABLE
     "leagues" ADD CONSTRAINT "leagues_owner_id_foreign" FOREIGN KEY("owner_id") REFERENCES "user"("id");
+ALTER TABLE
+	"users_teams" ADD CONSTRAINT "users_teams_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "user"("id");
+ALTER TABLE
+	"users_teams" ADD CONSTRAINT "users_teams_team_id_foreign" FOREIGN KEY("team_id") REFERENCES "teams"("id");
+ALTER TABLE
+	"users_leagues" ADD CONSTRAINT "users_leagues_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "user"("id");
+ALTER TABLE
+	"users_leagues" ADD CONSTRAINT "users_leagues_league_id_foreign" FOREIGN KEY("league_id") REFERENCES "leagues"("id");
+ALTER TABLE
+	"teams_leagues" ADD CONSTRAINT "teams_leagues_team_id_foreign" FOREIGN KEY("team_id") REFERENCES "teams"("id");
+ALTER TABLE
+	"teams_leagues" ADD CONSTRAINT "teams_leagues_league_id_foreign" FOREIGN KEY("league_id") REFERENCES "leagues"("id");

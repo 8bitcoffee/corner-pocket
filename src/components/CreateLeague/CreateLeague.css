@@ -1,0 +1,14 @@
+#create-league-title {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#create-league-form {
+    margin-left: 10px;
+}
+
+#create-league-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

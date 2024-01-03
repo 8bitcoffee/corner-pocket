@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-import PersonalStats from '../PersonalStats/PersonalStats.jsx';
-import TeamStats from '../TeamStats/TeamStats.jsx';
-import LeagueStats from '../LeagueStats/LeagueStats.jsx';
+import LeagueList from '../LeagueList/LeagueList.jsx';
 
 // Main page of the app after login
 // Will render different component based on league status
 function Home(){
+    const dispatch = useDispatch();
     const history = useHistory();
     const userLeague = useSelector(store => store.userLeague);
+    const user = useSelector(store=>store.user);
+
+    useEffect(() => {
+        dispatch({type: 'FETCH_LEAGUES', payload: user.id});
+    }, []);
 
     const createLeague = () => {
         history.push("/createLeague");
@@ -23,11 +27,7 @@ function Home(){
     if (userLeague.length > 0){
         return(
             <div>
-                <PersonalStats/>
-                <br/>
-                <TeamStats/>
-                <br/>
-                <LeagueStats/>
+                <LeagueList/>
             </div>
         )
     }
