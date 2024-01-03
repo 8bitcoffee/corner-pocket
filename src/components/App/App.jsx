@@ -28,12 +28,10 @@ import JoinLeague from '../JoinLeague/JoinLeague.jsx';
 
 function App() {
   const dispatch = useDispatch();
-
-  const user = useSelector(store => store.user);
+  const user = useSelector(store=>store.user);
 
   useEffect(() => {
     dispatch({type: 'FETCH_USER'});
-    dispatch({type: 'FETCH_LEAGUES'})
   }, [dispatch]);
 
   return (

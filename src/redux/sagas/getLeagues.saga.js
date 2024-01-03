@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* getLeagues(id){
+function* getLeagues(action){
     try {
-        const response = yield axios.get(`api/league/${id}`);
+        const id = action.payload;
+        const response = yield axios.get(`/api/league/${id}`);
         yield put({type: "SET_LEAGUES", payload: response.data});
     }
     catch (error) {
@@ -11,7 +12,7 @@ function* getLeagues(id){
     }
 }
 
-function* leaguesSaga (){
+function* leaguesSaga(){
     yield takeLatest("FETCH_LEAGUES", getLeagues);
 }
 
