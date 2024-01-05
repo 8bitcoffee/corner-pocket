@@ -6,6 +6,7 @@ import updateUserSaga from './updateUser.saga';
 import activitiesSaga from './getActivities.saga';
 import createLeagueSaga from './createLeague.saga';
 import leaguesSaga from './getLeagues.saga';
+import teamsSaga from './getTeams.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     activitiesSaga(),
     createLeagueSaga(),
     leaguesSaga(),
+    teamsSaga(),
   ]);
 }

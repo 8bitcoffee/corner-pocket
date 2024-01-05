@@ -1,29 +1,31 @@
 const express = require('express');
 const {
-  rejectUnauthenticated,
+    rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 
 const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
-  let queryText = `
-    SELECT * FROM "leagues"
-    JOIN "users_leagues" ON "users_leagues"."league_id" = "leagues"."id"
-    WHERE "users_leagues"."user_id" = $1;
-  `;
-  pool.query(queryText,[req.user.id])
-    .then((result) => {res.send(result.rows)})
-    .catch((error) => {
-      console.error("Error in league GET", error);
-      res.sendStatus(500);
-    })
-  ;
+    let queryText = `
+        SELECT * FROM "teams"
+        JOIN "users_teams" ON "users_teams"."team_id" = "teams"."id"
+        JOIN "teams_leagues" ON "teams_leagues"."team_id" = "teams"."id"
+        JOIN "leagues" ON "leagues"."id" = "teams_leagues"."id"
+        WHERE "users_teams"."user_id" = $1;
+    `;
+    pool.query(queryText,[req.user.id])
+        .then((result) => {res.send(result.rows)})
+        .catch((error) => {
+            console.error("Error in GET teams", error);
+            res.sendStatus(500);
+        })
+    ;
 });
 
 router.post('/', rejectUnauthenticated, (req, res) => {
-  let queryText = `
-    INSERT INTO "leagues" (league_name, activity_id, owner_id, number_of_teams)
+    let queryText = `
+    INSERT INTO "teams" (team_name, owner_id)
     VALUES ($1, $2, $3, $4)
     RETURNING id;
   `;

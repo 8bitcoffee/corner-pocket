@@ -21,8 +21,7 @@ scoring app to keep track of the games themselves.
 
 ## 1.1 Log-in (Desktop)
 
-> ![](public/img/image11.png){width="5.880208880139983in"
-> height="3.604371172353456in"}
+> ![](public/img/image11.png)
 >
 > Registered users will be able to log in to the application. The
 > **Log-in** page will contain a link to the **Registration** page (no

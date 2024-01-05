@@ -25,6 +25,7 @@ import './App.css';
 import EditUserPage from '../EditUserPage/EditUserPage.jsx';
 import CreateLeague from '../CreateLeague/CreateLeague.jsx';
 import JoinLeague from '../JoinLeague/JoinLeague.jsx';
+import TeamPage from '../TeamPage/TeamPage.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -89,6 +90,10 @@ function App() {
 
           <ProtectedRoute exact path="/joinLeague">
             <JoinLeague/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/teamdetails/:id">
+            <TeamPage/>
           </ProtectedRoute>
 
           <Route
