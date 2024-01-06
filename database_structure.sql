@@ -102,7 +102,6 @@ CREATE TABLE "teams"(
     "team_name" VARCHAR(255) NOT NULL,
     "owner_id" BIGINT NOT NULL,
     "authorized_user_id" BIGINT,
-    "league_id" BIGINT NOT NULL
 );
 
 CREATE TABLE "users_teams" (
@@ -110,46 +109,3 @@ CREATE TABLE "users_teams" (
     "user_id" BIGINT NOT NULL,
     "team_id" BIGINT NOT NULL
 );
-
-ALTER TABLE
-    "matchups" ADD CONSTRAINT "matchups_location_id_foreign" FOREIGN KEY("location_id") REFERENCES "locations"("id");
-ALTER TABLE
-    "teams" ADD CONSTRAINT "teams_league_id_foreign" FOREIGN KEY("league_id") REFERENCES "leagues"("id");
-ALTER TABLE
-    "games" ADD CONSTRAINT "games_away_player_foreign" FOREIGN KEY("away_player") REFERENCES "user"("id");
-ALTER TABLE
-    "leagues" ADD CONSTRAINT "leagues_activity_id_foreign" FOREIGN KEY("activity_id") REFERENCES "activities"("id");
-ALTER TABLE
-    "leagues" ADD CONSTRAINT "leagues_default_location_id_foreign" FOREIGN KEY("default_location_id") REFERENCES "locations"("id");
-ALTER TABLE
-    "rounds" ADD CONSTRAINT "rounds_matchup_id_foreign" FOREIGN KEY("matchup_id") REFERENCES "matchups"("id");
-ALTER TABLE
-    "matchups" ADD CONSTRAINT "matchups_home_team_id_foreign" FOREIGN KEY("home_team_id") REFERENCES "teams"("id");
-ALTER TABLE
-    "games" ADD CONSTRAINT "games_round_id_foreign" FOREIGN KEY("round_id") REFERENCES "rounds"("id");
-ALTER TABLE
-    "games" ADD CONSTRAINT "games_home_player_foreign" FOREIGN KEY("home_player") REFERENCES "user"("id");
-ALTER TABLE
-    "matchups" ADD CONSTRAINT "matchups_away_team_id_foreign" FOREIGN KEY("away_team_id") REFERENCES "teams"("id");
-ALTER TABLE
-    "teams" ADD CONSTRAINT "teams_owner_id_foreign" FOREIGN KEY("owner_id") REFERENCES "user"("id");
-ALTER TABLE
-    "teams" ADD CONSTRAINT "teams_authorized_user_id_foreign" FOREIGN KEY("authorized_user_id") REFERENCES "user"("id");
-ALTER TABLE
-    "tournaments" ADD CONSTRAINT "tournaments_league_id_foreign" FOREIGN KEY("league_id") REFERENCES "leagues"("id");
-ALTER TABLE
-    "leagues" ADD CONSTRAINT "leagues_authorized_user_id_foreign" FOREIGN KEY("authorized_user_id") REFERENCES "user"("id");
-ALTER TABLE
-    "leagues" ADD CONSTRAINT "leagues_owner_id_foreign" FOREIGN KEY("owner_id") REFERENCES "user"("id");
-ALTER TABLE
-	"users_teams" ADD CONSTRAINT "users_teams_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "user"("id");
-ALTER TABLE
-	"users_teams" ADD CONSTRAINT "users_teams_team_id_foreign" FOREIGN KEY("team_id") REFERENCES "teams"("id");
-ALTER TABLE
-	"users_leagues" ADD CONSTRAINT "users_leagues_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "user"("id");
-ALTER TABLE
-	"users_leagues" ADD CONSTRAINT "users_leagues_league_id_foreign" FOREIGN KEY("league_id") REFERENCES "leagues"("id");
-ALTER TABLE
-	"teams_leagues" ADD CONSTRAINT "teams_leagues_team_id_foreign" FOREIGN KEY("team_id") REFERENCES "teams"("id");
-ALTER TABLE
-	"teams_leagues" ADD CONSTRAINT "teams_leagues_league_id_foreign" FOREIGN KEY("league_id") REFERENCES "leagues"("id");

@@ -24,31 +24,43 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/', rejectUnauthenticated, (req, res) => {
-    let queryText = `
+  let queryText = `
     INSERT INTO "teams" (team_name, owner_id)
-    VALUES ($1, $2, $3, $4)
+    VALUES ($1, $2)
     RETURNING id;
   `;
-  pool.query(queryText, [req.body.league_name, req.body.activity_id, req.user.id, req.body.number_of_teams])
+  pool.query(queryText, [req.body.team_name, req.user.id])
     .then((result) => {
-      const league_id = result.rows[0].id
+      const team_id = result.rows[0].id
       let queryText = `
-        INSERT INTO "users_leagues" ("user_id", "league_id")
+        INSERT INTO "users_teams" ("user_id", "team_id")
         VALUES ($1, $2);
       `;
-      pool.query(queryText, [req.body.owner_id, league_id])
+      pool.query(queryText, [req.user.id, team_id])
         .then(() => {
-          res.sendStatus(201);
+          let queryText = `
+            INSERT INTO "teams_leagues" ("team_id", "league_id")
+            VALUES ($1, $2)
+          `;
+          pool.query(queryText, [team_id, Number(req.body.league_id)])
+            .then(() => {res.sendStatus(201)})
+            .catch((error) => {
+              console.error("Error in third query POST team", error);
+              res.sendStatus(500);
+            })
+          ;
         })
         .catch((error) => {
-          console.error("Error in secondary query POST league", error);
+          console.error("Error in secondary query POST team", error);
           res.sendStatus(500);
         })
+      ;
     })
     .catch((error) => {
-      console.error("Error in POST league", error);
+      console.error("Error in POST team", error);
       res.sendStatus(500);
     })
+  ;
 });
 
 module.exports = router;

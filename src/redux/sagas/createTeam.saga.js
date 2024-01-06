@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* createLeague(action){
+function* createTeam(action){
     try {
         yield axios.post(`/api/team/`, action.payload);
         const response = yield axios.get(`/api/team/`);
@@ -12,8 +12,8 @@ function* createLeague(action){
     }
 }
 
-function* createLeagueSaga (){
-    yield takeLatest("CREATE_TEAM", createLeague);
+function* createTeamSaga (){
+    yield takeLatest("CREATE_TEAM", createTeam);
 }
 
-export default createLeagueSaga;
+export default createTeamSaga;

@@ -6,6 +6,7 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
+// GET leagues that a specific user is a member of
 router.get('/', rejectUnauthenticated, (req, res) => {
   let queryText = `
     SELECT * FROM "leagues"
@@ -21,6 +22,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   ;
 });
 
+// GET info on a specific league
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  let queryText = `
+    SELECT * FROM "leagues"
+    JOIN "teams_leagues" ON "teams_leagues"."league_id" = "leagues"."id"
+    WHERE "leagues"."id" = $1;
+  `;
+  pool.query(queryText,[req.params.id])
+    .then((result) => {res.send(result.rows)})
+    .catch((error) => {
+      console.error("Error in league/:id GET", error);
+      res.sendStatus(500);
+    })
+  ;
+});
+
+// Create league
 router.post('/', rejectUnauthenticated, (req, res) => {
   let queryText = `
     INSERT INTO "leagues" (league_name, activity_id, owner_id, number_of_teams)
