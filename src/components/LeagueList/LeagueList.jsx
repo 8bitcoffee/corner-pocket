@@ -11,28 +11,30 @@ function LeagueList(){
 
     return(
         <div id='league-list'>
-            <h3>Leagues:</h3>
+            <img id="landing-logo" src={'./img/corner-pocket_624x624.png'} alt={'logo'}/>
+            <h1>Leagues:</h1>
                 {userLeague.map((league) => {return(
                     <div key={league.id}>
-                        <h5
+                        <h3
                             className="league-list-item"
                         >{league.league_name}
-                        </h5>
+                        </h3>
                             <div className='league-list-details'>
-                                {userTeam[league.id] == null ? 
+                                {league.user_team_id == null ? 
                                     <div>
                                         <p className='team-info'>No team joined</p>
-                                        {/* {league.team_openings > 0 ?  */}
-                                         <button className='sub-btn' onClick={()=>history.push(`/createteam/${league.id}`)}>Create Team</button>
-                                        {/* // } */}
+                                        {Number(league.number_of_teams) - Number(league.teams_joined) > 0 ? 
+                                         <button className='sub-btn' onClick={()=>history.push(`/createteam/${league.league_id}`)}>Create Team</button>
+                                         : <></>
+                                        }               
                                         <br/><br/>
                                         <button className='sub-btn'>Join Team</button>
                                     </div>
                                     :
                                     <p
-                                        onClick={history.push(`/teamdetails/${userTeam[league.id].team_id}`)}
+                                        onClick={()=>history.push(`/teamdetails/${league.id}/${league.user_team_id}`)}
                                         className='team-info'
-                                    >{userTeam[league.id].league_name}</p>
+                                    >{league.user_team_name}</p>
                                 }
                             </div>
                     </div>

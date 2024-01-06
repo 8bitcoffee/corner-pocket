@@ -1,6 +1,5 @@
 -- Create PostgreSQL DB with name corner_pocket
 
-
 CREATE TABLE "rounds"(
     "id" SERIAL PRIMARY KEY,
     "matchup_id" BIGINT NOT NULL,

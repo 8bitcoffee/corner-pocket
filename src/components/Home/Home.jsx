@@ -13,6 +13,7 @@ function Home(){
 
     useEffect(() => {
         dispatch({type: 'FETCH_LEAGUES'});
+        dispatch({type: "FETCH_TEAMS"})
     }, []);
 
     const createLeague = () => {
