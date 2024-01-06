@@ -6,13 +6,30 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+// GET leagues that a specific user is a member of
+router.get('/', rejectUnauthenticated, (req, res) => {
   let queryText = `
-    SELECT * FROM "leagues"
-    JOIN "users_leagues" ON "users_leagues"."league_id" = "leagues"."id"
-    WHERE "users_leagues"."user_id" = $1;
+    SELECT
+      leagues.*,
+      COUNT(DISTINCT teams_leagues.team_id) AS teams_joined,
+      MAX(users_teams.team_id) AS user_team_id,
+      MAX(teams.team_name) AS user_team_name
+    FROM
+      leagues
+    JOIN
+      users_leagues ON leagues.id = users_leagues.league_id
+    LEFT JOIN
+      teams_leagues ON leagues.id = teams_leagues.league_id
+    LEFT JOIN
+      users_teams ON teams_leagues.team_id = users_teams.team_id AND users_leagues.user_id = users_teams.user_id
+    LEFT JOIN
+      teams ON users_teams.team_id = teams.id
+    WHERE
+      users_leagues.user_id = $1
+    GROUP BY
+      leagues.id;
   `;
-  pool.query(queryText,[Number(req.params.id)])
+  pool.query(queryText,[req.user.id])
     .then((result) => {res.send(result.rows)})
     .catch((error) => {
       console.error("Error in league GET", error);
@@ -21,16 +38,31 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
   ;
 });
 
+// GET info on a specific league
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  let queryText = `
+    SELECT * FROM "leagues"
+    JOIN "teams_leagues" ON "teams_leagues"."league_id" = "leagues"."id"
+    WHERE "leagues"."id" = $1;
+  `;
+  pool.query(queryText,[req.params.id])
+    .then((result) => {res.send(result.rows)})
+    .catch((error) => {
+      console.error("Error in league/:id GET", error);
+      res.sendStatus(500);
+    })
+  ;
+});
+
+// Create league
 router.post('/', rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
   let queryText = `
     INSERT INTO "leagues" (league_name, activity_id, owner_id, number_of_teams)
     VALUES ($1, $2, $3, $4)
     RETURNING id;
   `;
-  pool.query(queryText, [req.body.league_name, req.body.activity_id, req.body.owner_id, req.body.number_of_teams])
+  pool.query(queryText, [req.body.league_name, req.body.activity_id, req.user.id, req.body.number_of_teams])
     .then((result) => {
-      console.log(result.rows)
       const league_id = result.rows[0].id
       let queryText = `
         INSERT INTO "users_leagues" ("user_id", "league_id")

@@ -10,10 +10,10 @@ function Home(){
     const dispatch = useDispatch();
     const history = useHistory();
     const userLeague = useSelector(store => store.userLeague);
-    const user = useSelector(store=>store.user);
 
     useEffect(() => {
-        dispatch({type: 'FETCH_LEAGUES', payload: user.id});
+        dispatch({type: 'FETCH_LEAGUES'});
+        dispatch({type: "FETCH_TEAMS"})
     }, []);
 
     const createLeague = () => {

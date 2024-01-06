@@ -1,3 +1,30 @@
+#league-list {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .league-list-item{
     color: #FEFEFF;
+    margin-left: 10px;
+}
+
+.league-list-details{
+    margin-left: 20px;
+}
+
+.sub-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border-color: #014041;
+    border-width: 1px 1px 1px;
+    border-radius: 6px;
+    background-color: #1D9831;
+    color: #FEFEFF;
+    font-size: 0.8rem;
+    outline: 0;
+    cursor: pointer;
+}
+
+.team-info {
+    font-size: 0.8rem;
 }
