@@ -57,7 +57,8 @@ CREATE TABLE "leagues"(
     "owner_id" BIGINT NOT NULL,
     "authorized_user_id" BIGINT,
     "number_of_teams" BIGINT NOT NULL,
-    "default_location_id" BIGINT NOT NULL
+    "default_location_id" BIGINT NOT NULL,
+    "join_code" VARCHAR(255)
 );
 
 CREATE TABLE "scoresheets"(
@@ -101,6 +102,7 @@ CREATE TABLE "teams"(
     "team_name" VARCHAR(255) NOT NULL,
     "owner_id" BIGINT NOT NULL,
     "authorized_user_id" BIGINT,
+    "join_code" VARCHAR(255)
 );
 
 CREATE TABLE "users_teams" (

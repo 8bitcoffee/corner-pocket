@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Detailed stats view of a player. Opened when a player is selected
 function CreateLeague(){
+    const codeLength = 6; //Change this to change length of code change in future
     const dispatch = useDispatch();
     const [leagueName, setLeagueName] = useState("");
     const [numTeams, setNumTeams] = useState("");
@@ -12,6 +13,18 @@ function CreateLeague(){
     const activities = useSelector(store=>store.activities);
     const user = useSelector(store=>store.user);
     const [createLeagueError, setCreateLeagueError] = useState("")
+
+    const createJoinCode = (length) =>{
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,6 +39,7 @@ function CreateLeague(){
             return setCreateLeagueError("Need to have a whole team. No decimals.")
         }
         else{
+            const joinCode = createJoinCode(codeLength);
             dispatch({type: "CREATE_LEAGUE", payload: {
                 league_name: leagueName,
                 activity_id: activity,

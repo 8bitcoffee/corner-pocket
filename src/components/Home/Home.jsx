@@ -9,7 +9,7 @@ import LeagueList from '../LeagueList/LeagueList.jsx';
 function Home(){
     const dispatch = useDispatch();
     const history = useHistory();
-    const userLeague = useSelector(store => store.userLeague);
+    const userLeagues = useSelector(store => store.userLeagues);
 
     useEffect(() => {
         dispatch({type: 'FETCH_LEAGUES'});
@@ -20,14 +20,17 @@ function Home(){
         history.push("/createLeague");
     }
 
-    const joinLeague = () => {
-        history.push("/joinLeague");
+    const joinTeam = () => {
+        history.push("/joinTeam");
     }
 
-    if (userLeague.length > 0){
+    if (userLeagues.length > 0){
         return(
             <div>
                 <LeagueList/>
+                <br/>
+                <br/>
+                <button id="join-team-btn" onClick={joinTeam} className="btn">Join Team</button>
             </div>
         )
     }
@@ -38,7 +41,7 @@ function Home(){
                 <br/><br/>
                 <button onClick={createLeague} className="btn">Create League</button>
                 <br/><br/>
-                <button onClick={joinLeague} className="btn">Join League</button>
+                <button onClick={joinTeam} className="btn">Join Team</button>
             </div>
         )
     }

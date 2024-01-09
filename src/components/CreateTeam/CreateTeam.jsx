@@ -5,18 +5,34 @@ import './CreateTeam.css';
 
 // Form for creating a team inside an already created league
 function CreateTeam(){
+    const codeLength = 6; //Change this to change length of code change in future
     const history = useHistory();
     const dispatch = useDispatch();
     const [teamName, setTeamName] = useState("");
     const league_id = useParams().id;
 
+    // TODO: Change to uuid with code expiration rather than random unlimited
+    const createJoinCode = (length) =>{
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        const joinCode = createJoinCode(codeLength);
         let action = {
             type: "CREATE_TEAM",
             payload: {
                 team_name: teamName,
-                league_id: league_id
+                league_id: league_id,
+                join_code: joinCode
             }
         }
         dispatch(action);
