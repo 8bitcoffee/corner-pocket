@@ -20,14 +20,17 @@ function Home(){
         history.push("/createLeague");
     }
 
-    const joinLeague = () => {
-        history.push("/joinLeague");
+    const joinTeam = () => {
+        history.push("/joinTeam");
     }
 
     if (userLeagues.length > 0){
         return(
             <div>
                 <LeagueList/>
+                <br/>
+                <br/>
+                <button id="join-team-btn" onClick={joinTeam} className="btn">Join Team</button>
             </div>
         )
     }
@@ -38,7 +41,7 @@ function Home(){
                 <br/><br/>
                 <button onClick={createLeague} className="btn">Create League</button>
                 <br/><br/>
-                <button onClick={joinLeague} className="btn">Join League</button>
+                <button onClick={joinTeam} className="btn">Join Team</button>
             </div>
         )
     }

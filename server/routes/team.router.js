@@ -70,7 +70,24 @@ router.get('/:id', rejectUnauthenticated, (req,res) => {
     JOIN "user" ON "user"."id" = "users_teams"."user_id"
     WHERE "teams"."id" = $1;
   `;
-  pool.query(queryText[req.params.id])
+  pool.query(queryText,[req.params.id])
+    .then((result) => {
+      res.send(result.rows)
+    })
+    .catch((error) => {
+      console.error("Error in GET teamid", error);
+      res.sendStatus(500);
+    })
+})
+
+router.get('/roster/:id', rejectUnauthenticated, (req,res) => {
+  let queryText = `
+    SELECT * FROM "teams"
+    JOIN "users_teams" ON "users_teams"."team_id" = "teams"."id"
+    JOIN "user" ON "user"."id" = "users_teams"."user_id"
+    WHERE "teams"."id" = $1;
+  `;
+  pool.query(queryText,[req.params.id])
     .then((result) => {
       res.send(result.rows)
     })

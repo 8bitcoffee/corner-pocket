@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import updateUserSaga from './updateUser.saga';
 import activitiesSaga from './getActivities.saga';
 import createLeagueSaga from './createLeague.saga';
+import leagueSaga from './getLeague.saga';
 import leaguesSaga from './getLeagues.saga';
 import teamsSaga from './getTeams.saga';
 import createTeamSaga from './createTeam.saga';
@@ -25,6 +26,7 @@ export default function* rootSaga() {
     updateUserSaga(),
     activitiesSaga(),
     createLeagueSaga(),
+    leagueSaga(),
     leaguesSaga(),
     teamsSaga(),
     teamSaga(),

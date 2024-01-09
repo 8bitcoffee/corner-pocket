@@ -17,6 +17,7 @@ function LeagueList(){
                     <div key={league.id}>
                         <h3
                             className="league-list-item"
+                            onClick={()=>history.push(`/leaguedetails/${league.id}`)}
                         >{league.league_name}
                         </h3>
                             <div className='league-list-details'>
