@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './JoinTeam.css';
 
 // Component showing details of the league
 function JoinTeam(){
+    const history = useHistory();
     const dispatch = useDispatch();
     const [joinCode, setJoinCode] = useState("");
     const user = useSelector(store=>store.user);
@@ -12,6 +14,7 @@ function JoinTeam(){
     const handleSubmit = (e) =>{
         e.preventDefault();
         dispatch({type: "JOIN_TEAM", payload: {user: user, code: joinCode}});
+        history.push('/homepage');
     };
 
     const handleChange = (e) => {
