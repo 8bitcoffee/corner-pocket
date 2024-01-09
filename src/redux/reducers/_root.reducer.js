@@ -2,8 +2,10 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import userLeague from './userLeague.reducer';
+import userLeagues from './userLeagues.reducer';
 import activities from './activity.reducer';
 import userTeam from './userTeam.reducer';
+import userTeams from './userTeams.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -14,9 +16,11 @@ import userTeam from './userTeam.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  userLeague, // leagues the user is a member of
+  userLeague, // Specific league
+  userLeagues, // leagues the user is a member of
   activities, // activities able to make a league of
-  userTeam,
+  userTeam, // specific team
+  userTeams, // all teams user is a part of
 });
 
 export default rootReducer;

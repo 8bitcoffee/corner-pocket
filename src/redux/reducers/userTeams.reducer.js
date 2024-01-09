@@ -1,10 +1,10 @@
-const userTeam = (state = [], action) => {
+const userTeams = (state = [], action) => {
     switch (action.type) {
-        case 'SET_TEAM':
+        case 'SET_TEAMS':
           return action.payload;
         default:
           return state;
     }
 }
 
-export default userTeam;
+export default userTeams;

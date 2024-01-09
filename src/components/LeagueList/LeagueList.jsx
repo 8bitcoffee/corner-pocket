@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-dom';
 
 function LeagueList(){
     const history = useHistory();
-    const userLeague = useSelector(store=>store.userLeague);
-    const userTeam = useSelector(store=>store.userTeam);
+    const userLeagues = useSelector(store=>store.userLeagues);
+    const userTeams = useSelector(store=>store.userTeams);
 
     return(
         <div id='league-list'>
             <img id="landing-logo" src={'./img/corner-pocket_624x624.png'} alt={'logo'}/>
             <h1>Leagues:</h1>
-                {userLeague.map((league) => {return(
+                {userLeagues.map((league) => {return(
                     <div key={league.id}>
                         <h3
                             className="league-list-item"

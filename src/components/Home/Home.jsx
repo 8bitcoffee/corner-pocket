@@ -9,7 +9,7 @@ import LeagueList from '../LeagueList/LeagueList.jsx';
 function Home(){
     const dispatch = useDispatch();
     const history = useHistory();
-    const userLeague = useSelector(store => store.userLeague);
+    const userLeagues = useSelector(store => store.userLeagues);
 
     useEffect(() => {
         dispatch({type: 'FETCH_LEAGUES'});
@@ -24,7 +24,7 @@ function Home(){
         history.push("/joinLeague");
     }
 
-    if (userLeague.length > 0){
+    if (userLeagues.length > 0){
         return(
             <div>
                 <LeagueList/>

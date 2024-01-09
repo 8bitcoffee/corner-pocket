@@ -25,11 +25,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.post('/', rejectUnauthenticated, (req, res) => {
   let queryText = `
-    INSERT INTO "teams" (team_name, owner_id)
-    VALUES ($1, $2)
+    INSERT INTO "teams" (team_name, owner_id, join_code)
+    VALUES ($1, $2, $3)
     RETURNING id;
   `;
-  pool.query(queryText, [req.body.team_name, req.user.id])
+  pool.query(queryText, [req.body.team_name, req.user.id, req.body.join_code])
     .then((result) => {
       const team_id = result.rows[0].id
       let queryText = `
@@ -62,5 +62,22 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
   ;
 });
+
+router.get('/:id', rejectUnauthenticated, (req,res) => {
+  let queryText = `
+    SELECT * FROM "teams"
+    JOIN "users_teams" ON "users_teams"."team_id" = "teams"."id"
+    JOIN "user" ON "user"."id" = "users_teams"."user_id"
+    WHERE "teams"."id" = $1;
+  `;
+  pool.query(queryText[req.params.id])
+    .then((result) => {
+      res.send(result.rows)
+    })
+    .catch((error) => {
+      console.error("Error in GET teamid", error);
+      res.sendStatus(500);
+    })
+})
 
 module.exports = router;

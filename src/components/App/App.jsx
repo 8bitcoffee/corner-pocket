@@ -97,7 +97,7 @@ function App() {
             <JoinLeague/>
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/teamdetails/:id">
+          <ProtectedRoute exact path="/teamdetails/:leagueid/:teamid">
             <TeamPage/>
           </ProtectedRoute>
 

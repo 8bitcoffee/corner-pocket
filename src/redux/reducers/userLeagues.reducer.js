@@ -1,6 +1,6 @@
-const userLeague = (state = [], action) => {
+const userLeagues = (state = [], action) => {
     switch (action.type) {
-        case 'SET_LEAGUE':
+        case 'SET_LEAGUES':
           return action.payload;
         default:
           return state;
@@ -8,4 +8,4 @@ const userLeague = (state = [], action) => {
 }
 
 // reducer set as userLeague
-export default userLeague;
+export default userLeagues;
