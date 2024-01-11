@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 import './CreateTournament.css';
 
 // Form to create tournamnet
 function CreateTournament(){
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const leagueId = useParams().leagueid;
     const [tournamentName, setTournamentName] = useState("");
     const [bracket, setBracket] = useState("");
     const [playoffs, setPlayoffs] = useState("");
@@ -10,6 +15,17 @@ function CreateTournament(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        dispatch({
+            type: "CREATE_TOURNAMENT",
+            payload: {
+                tournament_name: tournamentName,
+                bracket: bracket,
+                playoffs: playoffs,
+                playoff_num: playoffNum,
+                league_id: leagueId
+            }
+        });
+        history.push(`/leagueadmin/${leagueId}`);
     }
 
     return(
