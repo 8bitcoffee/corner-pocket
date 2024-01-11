@@ -11,6 +11,8 @@ import teamsSaga from './getTeams.saga';
 import createTeamSaga from './createTeam.saga';
 import teamSaga from './getTeam.saga';
 import joinTeamSaga from './joinTeam.saga';
+import getTournamentsSaga from './getTournaments.saga';
+import createTournamentSaga from './createTournament.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -33,5 +35,7 @@ export default function* rootSaga() {
     teamSaga(),
     createTeamSaga(),
     joinTeamSaga(),
+    getTournamentsSaga(),
+    createTournamentSaga(),
   ]);
 }

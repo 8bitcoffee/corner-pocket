@@ -3,8 +3,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* createTournament(action){
     try {
-        yield axios.post(`/api/league/tournament`, action.payload);
-        const response = yield axios.get(`/api/league/tournament`);
+        yield axios.post(`/api/tournament`, action.payload);
+        const response = yield axios.get(`/api/tournament`);
         yield put({type: "SET_TOURNAMENTS", payload: response.data});
     }
     catch (error) {

@@ -13,6 +13,7 @@ const leagueRouter = require('./routes/league.router');
 const matchRouter = require('./routes/match.router');
 const activityRouter = require('./routes/activity.router');
 const teamRouter = require('./routes/team.router');
+const tournamentRouter = require('./routes/tournament.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/league', leagueRouter);
 app.use('/api/match', matchRouter);
 app.use('/api/activity', activityRouter);
 app.use('/api/team', teamRouter);
+app.use('/api/tournament', tournamentRouter);
 
 // Serve static files
 app.use(express.static('build'));
