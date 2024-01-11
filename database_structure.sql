@@ -32,11 +32,11 @@ CREATE TABLE "games"(
 CREATE TABLE "tournaments"(
     "id" SERIAL PRIMARY KEY,
     "tournament_name" VARCHAR(255) NOT NULL,
-    "league_id" BIGINT NOT NULL,
     "bracket" BOOLEAN NOT NULL,
     "num_teams" INT NOT NULL,
     "playoffs" BOOLEAN NOT NULL,
-    "playoff_num" INT NOT NULL
+    "playoff_num" INT NOT NULL,
+    "complete" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE "locations"(
@@ -109,4 +109,10 @@ CREATE TABLE "users_teams" (
     "id" SERIAL PRIMARY KEY,
     "user_id" BIGINT NOT NULL,
     "team_id" BIGINT NOT NULL
+);
+
+CREATE TABLE "leagues_tournaments"(
+	"id" SERIAL PRIMARY KEY,
+	"league_id" BIGINT NOT NULL,
+	"tournament_id" BIGINT NOT NULL
 );
