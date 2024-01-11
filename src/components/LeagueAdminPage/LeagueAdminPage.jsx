@@ -5,6 +5,7 @@ import './LeagueAdminPage.css';
 
 // Component showing admin functions for league owner
 function LeagueAdminPage(){
+    const history = useHistory();
     const dispatch = useDispatch();
     const leagueId = useParams().leagueid;
     const user = useSelector(store=>store.user);
@@ -18,7 +19,10 @@ function LeagueAdminPage(){
         return(
             <div>
                 <h3>{userLeague.league_name}</h3>
-                
+                <button 
+                    className='sub-btn'
+                    onClick={()=>history.push(`/leagueadmin/${leagueId}/createtournament`)}
+                >Create Tournament</button>
             </div>
         )
     }
