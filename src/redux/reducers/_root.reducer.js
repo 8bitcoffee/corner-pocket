@@ -6,6 +6,7 @@ import userLeagues from './userLeagues.reducer';
 import activities from './activity.reducer';
 import userTeam from './userTeam.reducer';
 import userTeams from './userTeams.reducer';
+import leagueTournaments from './leagueTournaments.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   activities, // activities able to make a league of
   userTeam, // specific team
   userTeams, // all teams user is a part of
+  leagueTournaments, // Tournaments in a specific league
 });
 
 export default rootReducer;

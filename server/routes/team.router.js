@@ -100,41 +100,25 @@ router.get('/roster/:id', rejectUnauthenticated, (req,res) => {
 router.post('/join', rejectUnauthenticated, (req,res) => {
   let queryText = `
     WITH user_input AS (
-        SELECT
-            $1::BIGINT AS user_id,
-            $2 AS join_code
+      SELECT $1::BIGINT AS user_id, $2 AS join_code
     ),
     insert_team AS (
         INSERT INTO "users_teams" ("user_id", "team_id")
-        SELECT
-            ui.user_id,
-            teams.id
-        FROM
-            user_input ui
-        JOIN
-            "teams" ON ui.join_code = "teams"."join_code"
-        LEFT JOIN
-            "users_teams" ut ON ui.user_id = ut.user_id AND "teams"."id" = ut.team_id
-        WHERE
-            ut.team_id IS NULL
+        SELECT ui.user_id, teams.id
+        FROM user_input ui
+        JOIN "teams" ON ui.join_code = "teams"."join_code"
+        LEFT JOIN "users_teams" ut ON ui.user_id = ut.user_id AND "teams"."id" = ut.team_id
+        WHERE ut.team_id IS NULL
         RETURNING "user_id", "team_id"
     )
     INSERT INTO "users_leagues" ("user_id", "league_id")
-    SELECT
-        it."user_id",
-        leagues.id
-    FROM
-        user_input ui
-    JOIN
-        insert_team it ON true
-    JOIN
-        "teams_leagues" ON it."team_id" = "teams_leagues"."team_id"
-    JOIN
-        "leagues" ON "teams_leagues"."league_id" = leagues.id
-    LEFT JOIN
-        "users_leagues" ul ON it."user_id" = ul.user_id AND leagues.id = ul.league_id
-    WHERE
-        ul.league_id IS NULL;
+    SELECT it."user_id", leagues.id
+    FROM user_input ui
+    JOIN insert_team it ON true
+    JOIN "teams_leagues" ON it."team_id" = "teams_leagues"."team_id"
+    JOIN "leagues" ON "teams_leagues"."league_id" = leagues.id
+    LEFT JOIN "users_leagues" ul ON it."user_id" = ul.user_id AND leagues.id = ul.league_id
+    WHERE ul.league_id IS NULL;
   `;
   pool.query(queryText,[req.user.id, req.body.code])
     .then(() => {

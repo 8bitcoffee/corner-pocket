@@ -1,0 +1,15 @@
+#create-tournament-title {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#create-tournament-form {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#create-tournament-btn {
+    display: block;
+    margin-left:auto;
+    margin-right: auto;
+}
