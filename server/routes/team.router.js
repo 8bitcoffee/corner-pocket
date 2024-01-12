@@ -28,10 +28,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/league/:id', rejectUnauthenticated, (req, res) => {
   let queryText = `
     SELECT * FROM "teams"
-    JOIN "users_teams" ON "users_teams"."team_id" = "teams"."id"
     JOIN "teams_leagues" ON "teams_leagues"."team_id" = "teams"."id"
-    JOIN "leagues" ON "leagues"."id" = "teams_leagues"."league_id"
-    WHERE "leagues"."id" = $1;
+    WHERE "teams_leagues"."league_id" = $1;
   `;
   pool.query(queryText,[req.params.id])
     .then((result) => {res.send(result.rows)})

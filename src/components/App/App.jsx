@@ -30,6 +30,7 @@ import LeagueDetails from '../LeagueDetails/LeagueDetails.jsx';
 import JoinTeam from '../JoinTeam/JoinTeam.jsx';
 import LeagueAdminPage from '../LeagueAdminPage/LeagueAdminPage.jsx';
 import CreateTournament from '../CreateTournament/CreateTournament.jsx';
+import JoinLeague from '../JoinLeague/JoinLeague.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -98,6 +99,10 @@ function App() {
 
           <ProtectedRoute exact path="/joinTeam">
             <JoinTeam/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/joinLeague">
+            <JoinLeague/>
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/teamdetails/:leagueid/:teamid">

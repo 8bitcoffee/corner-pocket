@@ -6,10 +6,12 @@ function* getLeague(action){
         const leagueInfo = yield axios.get(`/api/league/${action.payload.id}`);
         const teamsInfo = yield axios.get(`/api/team/league/${action.payload.id}`);
         const usersInfo = yield axios.get(`/api/user/league/${action.payload.id}`);
+        const tournamentsInfo = yield axios.get(`/api/tournament/league/${action.payload.id}`);
         const league = {
-            league_info: leagueInfo.data,
-            teams_info: teamsInfo.data,
-            users_info: usersInfo.data
+            leagueInfo: leagueInfo.data,
+            teamsInfo: teamsInfo.data,
+            usersInfo: usersInfo.data,
+            tournamentsInfo: tournamentsInfo.data
         };
         yield put({type: "SET_LEAGUE", payload: league});
     }

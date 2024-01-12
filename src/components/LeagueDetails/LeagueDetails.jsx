@@ -18,8 +18,8 @@ function LeagueDetails(){
     }, []);
 
     return(
-        <div>
-            <h3>{userLeague.league_name}</h3>
+        <div id="league-details-page">
+            <h3 id="league-name">{userLeague.leagueInfo.league_name}</h3>
             {user.id == userLeague.owner_id ?
                 <button 
                 className='sub-btn'
@@ -27,6 +27,40 @@ function LeagueDetails(){
                 >Admin Page</button> :
                 <></>
             }
+            <div>
+                <h4 className='details-subtitle'>Tournaments:</h4>
+                {userLeague.tournamentsInfo.length == 0 ?
+                <h5 className='details-third-level'>No Tournaments Yet</h5>:
+                userLeague.tournamentsInfo.map((tournament)=>{
+                    return(
+                        <div className="tournament-info" key={tournament.id}>
+                            <h5 className='details-third-level'>{tournament.tournament_name}</h5>
+                        </div>
+                    )
+                })}
+            </div>
+            <hr/>
+            <div>
+                <h4 className='details-subtitle'>Teams:</h4>
+                {userLeague.teamsInfo.map((team)=>{
+                    return(
+                        <div className='details-third-level' key={team.id}>
+                            <h5>{team.team_name}</h5>
+                        </div>
+                    )
+                })}
+            </div>
+            <hr/>
+            <div>
+                <h4 className='details-subtitle'>Players:</h4>
+                {userLeague.usersInfo.map((user)=>{
+                    return(
+                        <div className='details-third-level' key={user.id}>
+                            <h5>{user.first_name + " " + user.last_name}</h5>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }

@@ -27,8 +27,7 @@ router.get('/user/', rejectUnauthenticated, (req,res) => {
 router.get('/league/:id', rejectUnauthenticated, (req,res) => {
     let queryText = `
         SELECT * FROM "tournaments"
-        JOIN "leagues_tournaments" ON "leagues_tournaments"."tournament_id" = "tournaments"."id"
-        WHERE "leagues_tournaments"."league_id" = $1;
+        WHERE "tournaments"."league_id" = $1;
     `;
     pool.query(queryText,[req.params.id])
         .then((result) => {res.send(result.rows)})

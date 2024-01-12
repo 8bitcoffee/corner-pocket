@@ -20,6 +20,10 @@ function Home(){
         history.push("/createLeague");
     }
 
+    const joinLeague = () => {
+        history.push("/joinLeague");
+    }
+    
     const joinTeam = () => {
         history.push("/joinTeam");
     }
@@ -29,6 +33,9 @@ function Home(){
             <div>
                 <LeagueList/>
                 <br/>
+                <button id="create-league-btn" onClick={createLeague} className="btn">Create League</button>
+                <br/>
+                <button id="join-league-btn" onClick={joinLeague} className="btn">Join League</button>
                 <br/>
                 <button id="join-team-btn" onClick={joinTeam} className="btn">Join Team</button>
             </div>
@@ -39,9 +46,11 @@ function Home(){
             <div id="create-join-btns">
                 <img id="landing-logo" src={'./img/corner-pocket_624x624.png'} alt={'logo'}/>
                 <br/><br/>
-                <button onClick={createLeague} className="btn">Create League</button>
+                <button id="create-league-btn" onClick={createLeague} className="btn">Create League</button>
                 <br/><br/>
-                <button onClick={joinTeam} className="btn">Join Team</button>
+                <button id="join-league-btn" onClick={joinLeague} className="btn">Join League</button>
+                <br/><br/>
+                <button id="join-team-btn" onClick={joinTeam} className="btn">Join Team</button>
             </div>
         )
     }

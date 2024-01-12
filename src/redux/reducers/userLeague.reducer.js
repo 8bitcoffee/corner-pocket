@@ -1,4 +1,10 @@
-const userLeague = (state = [], action) => {
+const userLeague = (state = {
+  leagueInfo:
+    {league_name:""},
+    tournamentsInfo:[],
+    teamsInfo:[],
+    usersInfo:[]
+  }, action) => {
     switch (action.type) {
         case 'SET_LEAGUE':
           return action.payload;
