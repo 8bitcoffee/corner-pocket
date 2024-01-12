@@ -6,6 +6,7 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
+// Getting team info by user
 router.get('/', rejectUnauthenticated, (req, res) => {
   let queryText = `
     SELECT * FROM "teams"
@@ -23,6 +24,25 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   ;
 });
 
+// Team info by league
+router.get('/league/:id', rejectUnauthenticated, (req, res) => {
+  let queryText = `
+    SELECT * FROM "teams"
+    JOIN "users_teams" ON "users_teams"."team_id" = "teams"."id"
+    JOIN "teams_leagues" ON "teams_leagues"."team_id" = "teams"."id"
+    JOIN "leagues" ON "leagues"."id" = "teams_leagues"."league_id"
+    WHERE "leagues"."id" = $1;
+  `;
+  pool.query(queryText,[req.params.id])
+    .then((result) => {res.send(result.rows)})
+    .catch((error) => {
+        console.error("Error in GET teams by league", error);
+        res.sendStatus(500);
+    })
+  ;
+});
+
+// Creating a new team
 router.post('/', rejectUnauthenticated, (req, res) => {
   let queryText = `
     INSERT INTO "teams" (team_name, owner_id, join_code)
@@ -63,6 +83,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   ;
 });
 
+// Get specific team info
 router.get('/:id', rejectUnauthenticated, (req,res) => {
   let queryText = `
     SELECT * FROM "teams"
@@ -80,6 +101,7 @@ router.get('/:id', rejectUnauthenticated, (req,res) => {
     })
 })
 
+// Get users for a specific team
 router.get('/roster/:id', rejectUnauthenticated, (req,res) => {
   let queryText = `
     SELECT * FROM "teams"
@@ -97,6 +119,7 @@ router.get('/roster/:id', rejectUnauthenticated, (req,res) => {
     })
 })
 
+// Joining an existing team
 router.post('/join', rejectUnauthenticated, (req,res) => {
   let queryText = `
     WITH user_input AS (
