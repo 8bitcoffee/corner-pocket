@@ -21,6 +21,7 @@ function CreateTournament(){
             type: "CREATE_TOURNAMENT",
             payload: {
                 tournament_name: tournamentName,
+                num_rounds: numOfRounds,
                 bracket: bracket,
                 playoffs: playoffs,
                 playoff_num: playoffNum,
