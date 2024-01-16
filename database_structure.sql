@@ -64,9 +64,10 @@ CREATE TABLE "tournaments"(
     "id" SERIAL PRIMARY KEY,
     "tournament_name" VARCHAR(255) NOT NULL,
     "bracket" BOOLEAN NOT NULL,
-    "num_teams" INT NOT NULL,
-    "playoffs" BOOLEAN NOT NULL,
-    "playoff_num" INT NOT NULL,
+    "num_teams" INT,
+    "num_rounds" INT,
+    "playoffs" BOOLEAN DEFAULT FALSE,
+    "playoff_num" INT DEFAULT 0,
     "league_id" INT NOT NULL,
     "complete" BOOLEAN DEFAULT FALSE
 );
