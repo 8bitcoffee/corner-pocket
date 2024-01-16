@@ -15,7 +15,7 @@ function LeagueAdminPage(){
         dispatch({type: "FETCH_LEAGUE", payload: {id: leagueId}});
     }, []);
 
-    if (user.id == userLeague.owner_id){
+    if (user.id == userLeague.leagueInfo.owner_id){
         return(
             <div>
                 <h3>{userLeague.league_name}</h3>

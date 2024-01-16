@@ -18,8 +18,8 @@ function TeamPage(){
 
     return(
         <div>
-            <h3>{userTeam.team_name}</h3>
-            <h5>Join code - {userTeam.join_code}</h5>
+            <h3>{userTeam[0].team_name}</h3>
+            <h5>Join code - {userTeam[0].join_code}</h5>
             <h5>Roster:</h5>
             <ul>
                 {userTeam.map((user)=>{

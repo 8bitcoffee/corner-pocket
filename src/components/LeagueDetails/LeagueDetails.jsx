@@ -20,7 +20,7 @@ function LeagueDetails(){
     return(
         <div id="league-details-page">
             <h3 id="league-name">{userLeague.leagueInfo.league_name}</h3>
-            {user.id == userLeague.owner_id ?
+            {user.id == userLeague.leagueInfo.owner_id ?
                 <button 
                 className='sub-btn'
                 onClick={()=>history.push(`/leagueadmin/${leagueId}`)}
