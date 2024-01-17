@@ -64,9 +64,10 @@ CREATE TABLE "tournaments"(
     "id" SERIAL PRIMARY KEY,
     "tournament_name" VARCHAR(255) NOT NULL,
     "bracket" BOOLEAN NOT NULL,
-    "num_teams" INT NOT NULL,
-    "playoffs" BOOLEAN NOT NULL,
-    "playoff_num" INT NOT NULL,
+    "num_teams" INT,
+    "num_matchups" INT,
+    "playoffs" BOOLEAN DEFAULT FALSE,
+    "playoff_num" INT DEFAULT NULL,
     "league_id" INT NOT NULL,
     "complete" BOOLEAN DEFAULT FALSE
 );
@@ -92,13 +93,6 @@ CREATE TABLE "teams_leagues" (
     "league_id" BIGINT NOT NULL
 );
 
--- -- Junction table for showing which league is having a tournament
--- CREATE TABLE "leagues_tournaments"(
--- 	"id" SERIAL PRIMARY KEY,
--- 	"league_id" BIGINT NOT NULL,
--- 	"tournament_id" BIGINT NOT NULL
--- );
-
 -- Table for defining different scoresheet types
 CREATE TABLE "scoresheets"(
     "id" SERIAL PRIMARY KEY,
@@ -111,15 +105,19 @@ CREATE TABLE "scoresheets"(
 -- Table for the overall matchup between two teams
 CREATE TABLE "matchups"(
     "id" SERIAL PRIMARY KEY,
-    "date" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-    "location_id" BIGINT NOT NULL,
-    "home_team_id" BIGINT NOT NULL,
-    "away_team_id" BIGINT NOT NULL,
+    "date" DATE NOT NULL,
+    "location_id" BIGINT DEFAULT 1,
+    "home_team_id" BIGINT,
+    "away_team_id" BIGINT,
     "home_team_total" NUMERIC DEFAULT 0,
     "away_team_total" NUMERIC DEFAULT 0,
     "winner" BIGINT,
-    "home_lineup_set" BOOLEAN NOT NULL DEFAULT 'False',
-    "away_lineup_set" BOOLEAN NOT NULL DEFAULT 'False',
+    "home_lineup_set" BOOLEAN DEFAULT FALSE,
+    "away_lineup_set" BOOLEAN DEFAULT FALSE,
+    "confirmed_home" BOOLEAN DEFAULT FALSE,
+    "confirmed_away" BOOLEAN DEFAULT FALSE,
+    "confirmed" BOOLEAN DEFAULT FALSE,
+    "bye" BOOLEAN DEFAULT FALSE,
     "tournament_id" BIGINT NOT NULL
 );
 
@@ -129,8 +127,8 @@ CREATE TABLE "rounds"(
     "matchup_id" BIGINT NOT NULL,
     "home_score" NUMERIC,
     "away_score" NUMERIC,
-    "home_handicap" NUMERIC NOT NULL,
-    "away_handicap" NUMERIC NOT NULL,
+    "home_handicap" NUMERIC,
+    "away_handicap" NUMERIC,
     "home_total" NUMERIC,
     "away_total" NUMERIC,
     "round_winner" BIGINT,
@@ -140,14 +138,28 @@ CREATE TABLE "rounds"(
 -- Table for each game in a round
 CREATE TABLE "games"(
     "id" SERIAL PRIMARY KEY,
-    "home_player" BIGINT NULL,
-    "home_player_sub" BOOLEAN NOT NULL,
-    "home_player_score" VARCHAR(255) NOT NULL,
-    "away_player" BIGINT NULL,
-    "away_player_sub" BOOLEAN NOT NULL,
-    "away_player_score" VARCHAR(255) NOT NULL,
+    "home_player_id" BIGINT,
+    "home_player_sub" BOOLEAN,
+    "home_player_score" VARCHAR(255),
+    "away_player_id" BIGINT,
+    "away_player_sub" BOOLEAN,
+    "away_player_score" VARCHAR(255),
     "winner" BIGINT,
     "matchup_id" BIGINT NOT NULL,
     "round_id" BIGINT NOT NULL,
     "game_number" INT NOT NULL
+);
+
+-- Junction Table for teams in a matchup
+CREATE TABLE "teams_matchups"(
+	"id" SERIAL PRIMARY KEY,
+	"team_id" BIGINT NOT NULL,
+	"matchup_id" BIGINT NOT NULL
+);
+
+-- Junction Table for users in a matchup
+CREATE TABLE "users_matchups"(
+    "id" SERIAL PRIMARY KEY,
+	"user_id" BIGINT NOT NULL,
+	"matchup_id" BIGINT NOT NULL
 );

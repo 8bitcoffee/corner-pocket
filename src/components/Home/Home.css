@@ -1,9 +1,18 @@
-#create-join-btns {
-    text-align: center;
-}
-
 #join-team-btn {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 175px;
+}
+#join-league-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 175px;
+}
+#create-league-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 175px;
 }

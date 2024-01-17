@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
 
-  const queryText = `INSERT INTO "user" (username, password, first_name, last_name)
+  let queryText = `INSERT INTO "user" (username, password, first_name, last_name)
     VALUES ($1, $2, $3, $4) RETURNING id`;
   pool
     .query(queryText, [username, password, firstName, lastName])
@@ -49,6 +49,7 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+// Updating user info via profile page
 router.put('/', rejectUnauthenticated, (req,res) => {
   const id = req.body.id;
   const username = req.body.username;
@@ -61,7 +62,7 @@ router.put('/', rejectUnauthenticated, (req,res) => {
   const zip = req.body.zip;
   const phone = req.body.phone;
 
-  const queryText = `
+  let queryText = `
     UPDATE "user"
     SET (username, first_name, last_name, address_1, address_2, city, state, zip, phone) = ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     WHERE "id" = $10;
@@ -74,5 +75,26 @@ router.put('/', rejectUnauthenticated, (req,res) => {
       res.sendStatus(500);
     });
 });
+
+router.get(`/league/:id`, rejectUnauthenticated, (req,res) => {
+  let queryText = `
+    SELECT * FROM "user"
+    JOIN "users_leagues" ON "users_leagues"."user_id" = "user"."id"
+    JOIN "users_teams" ON "users_teams"."user_id" = "user"."id"
+    WHERE "users_leagues"."league_id" = $1
+    GROUP BY "users_teams"."team_id", "user"."id", "users_leagues"."id", "users_teams"."id";
+  `;
+  pool.query(queryText,[req.params.id])
+    .then((result)=> {
+      for (let user of result.rows){
+        delete user.password
+      };
+      res.send(result.rows);
+    })
+    .catch((error)=>{
+      console.error("Error in GET user info by league", error);
+      res.sendStatus(500);
+    })
+})
 
 module.exports = router;

@@ -15,12 +15,26 @@ function LeagueAdminPage(){
         dispatch({type: "FETCH_LEAGUE", payload: {id: leagueId}});
     }, []);
 
-    if (user.id == userLeague.owner_id){
+    if (user.id == userLeague.leagueInfo.owner_id){
         return(
             <div>
-                <h3>{userLeague.league_name}</h3>
+                <h3>{userLeague.leagueInfo.league_name}</h3>
+                <div>
+                    {userLeague.tournamentsInfo.map((tournament)=>{
+                        return(
+                            <div key={tournament.id}>
+                                <h5>Tournament: {tournament.tournament_name}</h5>
+                                <button 
+                                    className='sub-btn'
+                                    onClick={()=>history.push(`/managetournament/${tournament.id}`)}
+                                >Manage Tournament</button>
+                                <hr/>
+                            </div>
+                        )
+                    })}
+                </div>
                 <button 
-                    className='sub-btn'
+                    className='btn'
                     onClick={()=>history.push(`/leagueadmin/${leagueId}/createtournament`)}
                 >Create Tournament</button>
             </div>
