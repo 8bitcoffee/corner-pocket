@@ -18,7 +18,20 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 // Get matchups for team
 router.get('/team/:teamid', rejectUnauthenticated, (req, res) => {
-  // GET route code here
+  let queryText = `
+    SELECT * FROM "matchups"
+    LEFT JOIN "teams_matchups" ON "teams_matchups"."matchup_id" = "matchups"."id"
+    LEFT JOIN "teams" ON "teams"."id" = "teams_matchups"."team_id"
+    WHERE "teams"."id" = $1
+    ORDER BY "matchups"."date" ASC;
+  `;
+  pool.query(queryText, [req.params.teamid])
+    .then((result) => {res.send(result.rows)})
+    .catch((error) => {
+      console.error("Error on GET matchups by team", error);
+      res.sendStatus(500);
+    })
+  ;
 });
 
 // Get matchups for league

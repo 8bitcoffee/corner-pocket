@@ -45,7 +45,7 @@ function LeagueDetails(){
                 {userLeague.teamsInfo.map((team)=>{
                     return(
                         <div className='details-third-level' key={team.id}>
-                            <h5>{team.team_name}</h5>
+                            <h5 onClick={()=>history.push(`/teamdetails/${leagueId}/${team.id}`)}>{team.team_name}</h5>
                         </div>
                     )
                 })}

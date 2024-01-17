@@ -105,7 +105,7 @@ INSERT INTO "teams"(
 )
 VALUES 
     ('Aint Afraid of No Cue Balls' ,2,'Gbust!'),
-    ('All 4 One!',8,'A41!!!'),
+    ('All 4 One!',8,'A4114A'),
     ('Avenge This',19,'AVNGER'),
     ('Just Us League',20,'Snyder'),
     ('Quarrymen',26,'Walrus'),

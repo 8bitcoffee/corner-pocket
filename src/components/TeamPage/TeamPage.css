@@ -1,0 +1,22 @@
+#team-details-div {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#team-name {
+    text-decoration: underline;
+    text-align: center;
+}
+
+#match-details{
+    margin-top: -15px;
+}
+
+#copy-alert{
+    font-size: 8pt;
+    margin-left: 20px;
+}
+
+#copy-icon{
+    font-size: 10pt;
+}
