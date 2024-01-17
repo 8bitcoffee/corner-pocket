@@ -104,7 +104,7 @@ INSERT INTO "teams"(
     "join_code"
 )
 VALUES 
-    ('Aint Afraid of No Cue Ball' ,2,'Gbust!'),
+    ('Aint Afraid of No Cue Balls' ,2,'Gbust!'),
     ('All 4 One!',8,'A41!!!'),
     ('Avenge This',19,'AVNGER'),
     ('Just Us League',20,'Snyder'),

@@ -3,7 +3,7 @@ import './ManageTournament.css';
 
 function ManageTournament(){
     
-    function generateRoundRobinSchedule(numTeams, numRounds) {
+    const generateRoundRobinSchedule = (numTeams, numRounds) => {
         const initNumTeams = numTeams;
         if (numTeams % 2 !== 0) {
             // If the number of teams is odd, add a dummy team for a bye
@@ -24,7 +24,12 @@ function ManageTournament(){
                 if (team2 == initNumTeams + 1){
                     team2 = "bye";
                 }
-                matchups.push([team1, team2]);
+                if (week % 2 == 1){
+                    matchups.push([team1, team2]);
+                }
+                else{
+                    matchups.push([team2, team1]);
+                }
             }
             schedule[week] = matchups;
     
