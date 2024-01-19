@@ -9,7 +9,8 @@ const userTeam = (state = {
     team_name: "",
     date: "",
     home_team_name: "",
-    away_team_name: ""
+    away_team_name: "",
+    matchup_id: ""
   }
 }, action) => {
     switch (action.type) {

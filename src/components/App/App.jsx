@@ -32,6 +32,7 @@ import LeagueAdminPage from '../LeagueAdminPage/LeagueAdminPage.jsx';
 import CreateTournament from '../CreateTournament/CreateTournament.jsx';
 import JoinLeague from '../JoinLeague/JoinLeague.jsx';
 import ManageTournament from '../ManageTournament/ManageTournament.jsx';
+import ScoringApp from '../ScoringApp/ScoringApp.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -122,8 +123,12 @@ function App() {
             <CreateTournament/>
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/managetournament/:tournamentid">
+          <ProtectedRoute exact path="/managetournament/:leagueid/:tournamentid">
             <ManageTournament/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/score/:matchid">
+            <ScoringApp/>
           </ProtectedRoute>
 
           <Route

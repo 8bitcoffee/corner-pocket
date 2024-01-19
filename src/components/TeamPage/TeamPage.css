@@ -20,3 +20,9 @@
 #copy-icon{
     font-size: 10pt;
 }
+
+#score-matchup-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

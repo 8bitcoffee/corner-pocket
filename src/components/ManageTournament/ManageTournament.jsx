@@ -6,13 +6,16 @@ import './ManageTournament.css';
 
 function ManageTournament(){
     const dispatch = useDispatch();
+    const leagueId = useParams().leagueid;
     const tournamentId = useParams().tournamentid;
+    const leagueTeams = useSelector(store=>store.leagueTeams);
     const userTournament = useSelector(store=>store.userTournament);
     const userTournamentInfo = useSelector(store=>store.userTournamentInfo);
     const [tournamentWeek, setTournamentWeek] = useState("");
 
     useEffect(() => {
         dispatch({type: "FETCH_TOURNAMENT", payload: {id: tournamentId}});
+        dispatch({type: "FETCH_LEAGUE", payload: {id: leagueId}});
     }, []);
 
     return(
@@ -48,34 +51,27 @@ function ManageTournament(){
                 <thead>
                     <tr>
                         <th>Away Team</th>
+                        <th>Score</th>
+                        <th>Score</th>
                         <th>Home Team</th>
-                        <th>Winner</th>
-                        <th>Loser</th>
-                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
                     {userTournament[tournamentWeek].map((matchup) => {
                             return(
-                                <tr>
-                                    <td>{matchup.away_team_id}</td>
-                                    <td>{matchup.home_team_id}</td>
-                                    <td>{
-                                        matchup.winning_team_id == null ?
-                                        " - " : matchup.winning_team_id}
-                                    </td>
-                                    <td>{
-                                        matchup.losing_team_id == null ?
-                                        " - " : matchup.losing_team_id}
-                                    </td>
-                                    <td><button className='sub-btn'>Edit</button></td>
+                                <tr key={matchup.id}>
+                                    <td>{leagueTeams[matchup.away_team_id].team_name}</td>
+                                    <td>{matchup.away_team_total}</td>
+                                    <td>{matchup.home_team_total}</td>
+                                    <td>{leagueTeams[matchup.home_team_id].team_name}</td>
                                 </tr>
                             )
                         })}
                 </tbody>
             </table>
             <br/><br/>
-            <button id="reschedule-btn" className='btn'>Set New Date</button>
+            <button id="edit-week-btn" className='btn'>Edit Week</button>
+            <br/>
             </div>}
         </div>
     )

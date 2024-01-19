@@ -26,7 +26,7 @@ function LeagueAdminPage(){
                                 <h5>Tournament: {tournament.tournament_name}</h5>
                                 <button 
                                     className='sub-btn'
-                                    onClick={()=>history.push(`/managetournament/${tournament.id}`)}
+                                    onClick={()=>history.push(`/managetournament/${leagueId}/${tournament.id}`)}
                                 >Manage Tournament</button>
                                 <hr/>
                             </div>

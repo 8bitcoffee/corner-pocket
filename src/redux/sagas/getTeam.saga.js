@@ -13,7 +13,7 @@ function* getTeam(action){
         roster = roster.data;
 
         let nextDate = "1992-04-26";
-        console.log(matchups);
+
         if (matchups.length > 0){
             nextDate = DateTime.fromISO(matchups[0].date);
             nextDate = nextDate.toISODate();
@@ -42,6 +42,7 @@ function* getTeam(action){
         else{
             nextOpponentInfo = yield axios.get(`/api/team/${opponentId}`);
             nextOpponentInfo = nextOpponentInfo.data;
+            nextOpponentInfo.matchup_id = matchups[0].matchup_id;
         }
 
         if (away_team_name == teamInfo.team_name){

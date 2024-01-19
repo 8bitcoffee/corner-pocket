@@ -9,6 +9,8 @@ import userTeams from './userTeams.reducer';
 import leagueTournaments from './leagueTournaments.reducer';
 import userTournament from './userTournament.reducer';
 import userTournamentInfo from './userTournamentInfo.reducer';
+import leagueTeams from './leagueTeams.reducer';
+import userMatchup from './userMatchup.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -26,7 +28,9 @@ const rootReducer = combineReducers({
   userTeams, // all teams user is a part of
   leagueTournaments, // Tournaments in a specific league
   userTournament, // Specific tournament used in tournament mangement
-  userTournamentInfo,
+  userTournamentInfo, // General info for a specific tournament
+  leagueTeams, // Team info for a specific league formatted for tournament use
+  userMatchup, // Matchup info for use in scoring
 });
 
 export default rootReducer;

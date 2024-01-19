@@ -1,0 +1,1 @@
+// TODO: check for league admin status and team captain status
