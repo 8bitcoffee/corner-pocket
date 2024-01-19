@@ -70,6 +70,7 @@ function* createTournament(action){
 
                 // Compiling matchup info
                 let matchupData = {
+                    league_id: payload.league_id,
                     home_team_id: payload.userLeague.teamsInfo[matchup[0]-1].id,
                     away_team_id: payload.userLeague.teamsInfo[matchup[1]-1].id,
                     bye: isBye,

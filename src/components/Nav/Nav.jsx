@@ -12,6 +12,7 @@ function Nav() {
       <Link to="/homepage">
         <img id="header-logo" src={"./img/8ball.png"} alt={"logo"}/>
         <p className="nav-title">Corner Pocket</p>
+        {user.first_name == undefined ? <p className='nav-title'>Welcome Guest!</p>:<p className='nav-title'>{`Welcome ${user.first_name}!`}</p>}
       </Link>
       <div>
         {/* If no user is logged in, show these links */}

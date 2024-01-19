@@ -43,16 +43,18 @@ router.get('/league/:leagueid', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
   let queryText = `
     INSERT INTO "matchups" (
+      "league_id",
       "date",
       "bye",
       "home_team_id",
       "away_team_id",
       "tournament_id"
     )
-    VALUES ($1, $2, $3, $4, $5)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING id;
   `;
   pool.query(queryText,[
+    req.body.league_id,
     req.body.date,
     req.body.bye,
     req.body.home_team_id,
@@ -141,6 +143,25 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       console.error("Error in initial query POST matchup", error);
       res.sendStatus(500);
     })
+});
+
+
+// Get all matchup info for a specific tournament
+router.get('/tournament/:tournamentid', rejectUnauthenticated, (req,res) => {
+  let queryText = `
+      SELECT * FROM tournaments
+      JOIN matchups ON matchups.tournament_id = tournaments.id
+      WHERE tournaments.id = $1
+      GROUP BY matchups.date, tournaments.id, matchups.id
+      ORDER BY matchups.date ASC;
+  `;
+  pool.query(queryText,[req.params.tournamentid])
+      .then((result) => {res.send(result.rows)})
+      .catch((error) => {
+          console.error("Error in tournaments by league GET", error);
+          res.sendStatus(500);
+      })
+  ;
 });
 
 module.exports = router;

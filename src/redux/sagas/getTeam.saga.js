@@ -12,13 +12,21 @@ function* getTeam(action){
         teamInfo = teamInfo.data;
         roster = roster.data;
 
-        let nextDate = DateTime.fromISO(matchups[0].date);
-        nextDate = nextDate.toISODate();
-
+        let nextDate = "1992-04-26";
+        console.log(matchups);
+        if (matchups.length > 0){
+            nextDate = DateTime.fromISO(matchups[0].date);
+            nextDate = nextDate.toISODate();
+        }
+        else {
+            matchups = [{away_team_id : "", home_team_id: "", date: nextDate}]
+        }
+        
         let opponentId = "";
         let nextOpponentInfo;
         let away_team_name;
         let home_team_name;
+
         if (matchups[0].away_team_id == action.payload.id){
             away_team_name = teamInfo.team_name;
             opponentId = matchups[0].home_team_id;
@@ -41,6 +49,10 @@ function* getTeam(action){
         }
         else{
             away_team_name = nextOpponentInfo.team_name;
+        }
+
+        if (matchups[0].date == "1992-04-26"){
+            matchups = [];
         }
         nextOpponentInfo.date = nextDate;
         nextOpponentInfo.home_team_name = home_team_name;

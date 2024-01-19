@@ -38,24 +38,6 @@ router.get('/league/:id', rejectUnauthenticated, (req,res) => {
     ;
 });
 
-// Get all info for a specific tournament
-router.get('/:id', rejectUnauthenticated, (req,res) => {
-    let queryText = `
-        SELECT * FROM "tournaments"
-        JOIN "matchups" ON "matchups"."tournament_id" = "tournaments"."id"
-        JOIN "rounds" ON "rounds"."matchup_id" = "matchup"."id"
-        JOIN "games" ON "games"."round_id" = "rounds"."id"
-        WHERE "tournaments"."id" = $1;
-    `;
-    pool.query(queryText,[req.params.id])
-        .then((result) => {res.send(result.rows)})
-        .catch((error) => {
-            console.error("Error in tournaments by league GET", error);
-            res.sendStatus(500);
-        })
-    ;
-});
-
 // Create new tournament for a league
 router.post('/', rejectUnauthenticated, (req, res) => {
     let queryText = `
@@ -81,7 +63,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         req.body.league_id
     ])
         .then((result) => {
-            console.log(result.rows[0].id);
             res.send(String(result.rows[0].id)).status(201)})
         .catch((error) => {
             console.error("Error in tournaments POST second query", error);

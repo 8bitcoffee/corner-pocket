@@ -107,11 +107,13 @@ CREATE TABLE "matchups"(
     "id" SERIAL PRIMARY KEY,
     "date" DATE NOT NULL,
     "location_id" BIGINT DEFAULT 1,
+    "league_id" BIGINT NOT NULL,
     "home_team_id" BIGINT,
     "away_team_id" BIGINT,
     "home_team_total" NUMERIC DEFAULT 0,
     "away_team_total" NUMERIC DEFAULT 0,
-    "winner" BIGINT,
+    "winning_team_id" BIGINT,
+    "losing_team_id" BIGINT,
     "home_lineup_set" BOOLEAN DEFAULT FALSE,
     "away_lineup_set" BOOLEAN DEFAULT FALSE,
     "confirmed_home" BOOLEAN DEFAULT FALSE,
@@ -162,4 +164,14 @@ CREATE TABLE "users_matchups"(
     "id" SERIAL PRIMARY KEY,
 	"user_id" BIGINT NOT NULL,
 	"matchup_id" BIGINT NOT NULL
+);
+
+-- Junction Table for scores by user for each game
+CREATE TABLE "users_games"(
+    "id" SERIAL PRIMARY KEY,
+    "user_id" BIGINT NOT NULL,
+    "game_id" BIGINT NOT NULL,
+    "score" INT NOT NULL,
+    "break_run" BOOLEAN DEFAULT FALSE,
+    "return_run" BOOLEAN DEFAULT FALSE
 );

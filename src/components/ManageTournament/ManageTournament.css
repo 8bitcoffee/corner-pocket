@@ -1,0 +1,46 @@
+#week-selector {
+    text-align: center;
+}
+
+#week-selector-div{
+    text-align: center;
+}
+
+#week-table{
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 3px solid #FEFEFF;
+    width: 95%;
+}
+
+#tournament-name {
+    text-align: center;
+    text-decoration: underline;
+}
+
+th,td {
+    border: 1px solid #FEFEFF;
+    text-align: center;
+}
+
+th {
+    width: 1fr;
+    font-size: 8pt;
+    border-bottom: 3px solid;
+}
+
+td {
+    font-size: 8pt;
+}
+
+tr {
+    height: 4ch;
+}
+
+#reschedule-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

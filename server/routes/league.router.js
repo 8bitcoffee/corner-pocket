@@ -61,7 +61,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 // GET a specific league
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+router.get('/:leagueid', rejectUnauthenticated, (req, res) => {
   let queryText = `
     SELECT
       leagues.*,
@@ -76,7 +76,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     WHERE users_leagues.user_id = $1 AND leagues.id = $2
     GROUP BY "leagues"."id";
   `;
-  pool.query(queryText,[req.user.id, req.params.id])
+  pool.query(queryText,[req.user.id, req.params.leagueid])
     .then((result) => {res.send(result.rows[0])})
     .catch((error) => {
       console.error("Error in specific league GET", error);
@@ -84,5 +84,33 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     })
   ;
 });
+
+// GET stats for a league
+router.get(`/stats/:leagueid`,(req,res) => {
+  let queryText = `
+    SELECT 
+      COUNT(DISTINCT "users_games"."matchup_id") AS num_matchups,
+      SUM("score") AS total_points,
+      SUM("score") / COUNT(DISTINCT "users_games"."game_id")
+      COUNT("break_run") FILTER (WHERE "break_run") AS num_break_runs
+      COUNT("return_run") FILTER (WHERE "return_run") AS num_return_runs
+    FROM "users_games"
+    WHERE "league_id" = $1; 
+  `;
+})
+
+// GET standings for a league
+router.get(`/standings/:leagueid`,(req,res) => {
+  let queryText = `
+    SELECT 
+      COUNT(DISTINCT "users_games"."matchup_id") AS num_matchups,
+      SUM("score") AS total_points,
+      SUM("score") / COUNT(DISTINCT "users_games"."game_id")
+      COUNT("break_run") FILTER (WHERE "break_run") AS num_break_runs
+      COUNT("return_run") FILTER (WHERE "return_run") AS num_return_runs
+    FROM "users_games"
+    WHERE "league_id" = $1; 
+  `;
+})
 
 module.exports = router;

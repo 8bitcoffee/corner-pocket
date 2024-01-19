@@ -1,60 +1,85 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import './ManageTournament.css';
 
 function ManageTournament(){
-    
-    const generateRoundRobinSchedule = (numTeams, numRounds) => {
-        const initNumTeams = numTeams;
-        if (numTeams % 2 !== 0) {
-            // If the number of teams is odd, add a dummy team for a bye
-            numTeams++;
-        }
-    
-        const teams = Array.from({ length: numTeams }, (_, index) => index + 1);
-        const schedule = {};
-    
-        for (let week = 1; week <= numRounds; week++) {
-            const matchups = [];
-            for (let i = 0; i < numTeams / 2; i++) {
-                let team1 = teams[i];
-                let team2 = teams[numTeams - 1 - i];
-                if (team1 == initNumTeams + 1){
-                    team1 = "bye";
-                }
-                if (team2 == initNumTeams + 1){
-                    team2 = "bye";
-                }
-                if (week % 2 == 1){
-                    matchups.push([team1, team2]);
-                }
-                else{
-                    matchups.push([team2, team1]);
-                }
-            }
-            schedule[week] = matchups;
-    
-            // Rotate teams for the next week
-            teams.splice(1, 0, teams.pop());
-        }
-    
-        return schedule;
-    }
-    
-    // Examples
-    const numberOfTeams = 11;
-    const numberOfWeeks = 16;
-    const roundRobinSchedule = generateRoundRobinSchedule(numberOfTeams, numberOfWeeks);
-    console.log(roundRobinSchedule);
-    console.log(generateRoundRobinSchedule(12,16));
-    
-    
-    
+    const dispatch = useDispatch();
+    const tournamentId = useParams().tournamentid;
+    const userTournament = useSelector(store=>store.userTournament);
+    const userTournamentInfo = useSelector(store=>store.userTournamentInfo);
+    const [tournamentWeek, setTournamentWeek] = useState("");
+
+    useEffect(() => {
+        dispatch({type: "FETCH_TOURNAMENT", payload: {id: tournamentId}});
+    }, []);
 
     return(
         <div>
-
+            <h3 id="tournament-name">{userTournamentInfo.name}</h3>
+            <br/>
+            <div id="week-selector-div">
+                Select Week: <select
+                    name="week-selector"
+                    id="week-selector"
+                    value={tournamentWeek}
+                    onChange={(e)=>setTournamentWeek(e.target.value)}
+                >
+                    <option
+                        disabled
+                        value=""
+                    >Choose Week</option>
+                    {Object.keys(userTournament).map((week, index)=>{
+                        return(
+                            <option
+                                key={index}
+                                value={week}
+                            >{`Week ${index + 1} - ${week}`}</option>
+                        )
+                    })}
+                </select>
+            </div>
+            <br/>
+            {tournamentWeek == "" ?
+            <div><br/><br/><img id="landing-logo" src={'./img/corner-pocket_624x624.png'} alt={'logo'}/></div>: 
+            <div>
+            <table id="week-table">
+                <thead>
+                    <tr>
+                        <th>Away Team</th>
+                        <th>Home Team</th>
+                        <th>Winner</th>
+                        <th>Loser</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {userTournament[tournamentWeek].map((matchup) => {
+                            return(
+                                <tr>
+                                    <td>{matchup.away_team_id}</td>
+                                    <td>{matchup.home_team_id}</td>
+                                    <td>{
+                                        matchup.winning_team_id == null ?
+                                        " - " : matchup.winning_team_id}
+                                    </td>
+                                    <td>{
+                                        matchup.losing_team_id == null ?
+                                        " - " : matchup.losing_team_id}
+                                    </td>
+                                    <td><button className='sub-btn'>Edit</button></td>
+                                </tr>
+                            )
+                        })}
+                </tbody>
+            </table>
+            <br/><br/>
+            <button id="reschedule-btn" className='btn'>Set New Date</button>
+            </div>}
         </div>
     )
 }
 
 export default ManageTournament;
+
