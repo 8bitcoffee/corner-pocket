@@ -13,6 +13,8 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.2",
+    "ant-design": "^1.0.0",
+    "antd": "^5.13.2",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie-session": "^2.0.0",

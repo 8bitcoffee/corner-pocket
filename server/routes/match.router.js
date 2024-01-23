@@ -11,9 +11,49 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   // GET route code here
 });
 
-// Get specific matchup
+// Get specific matchup info
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-  // GET route code here
+  let queryText = `
+    SELECT * FROM "matchups"
+    WHERE "matchups"."id" = $1;
+  `;
+  pool.query(queryText,[req.params.id])
+    .then((result) => {res.send(result.rows)})
+    .catch((error) => {
+      console.error("Error on GET specific matchup info", error);
+      res.sendStatus(500);
+    })
+  ;
+});
+
+// Get specific matchup info by round
+router.get('/:id/rounds', rejectUnauthenticated, (req, res) => {
+  let queryText = `
+    SELECT * FROM "rounds"
+    WHERE "rounds"."matchup_id" = $1;
+  `;
+  pool.query(queryText,[req.params.id])
+    .then((result) => {res.send(result.rows)})
+    .catch((error) => {
+      console.error("Error on GET specific matchup info", error);
+      res.sendStatus(500);
+    })
+  ;
+});
+
+// Get specific matchup info by game
+router.get('/:id/games', rejectUnauthenticated, (req, res) => {
+  let queryText = `
+    SELECT * FROM "games"
+    WHERE "games"."matchup_id" = $1;
+  `;
+  pool.query(queryText,[req.params.id])
+    .then((result) => {res.send(result.rows)})
+    .catch((error) => {
+      console.error("Error on GET specific matchup info", error);
+      res.sendStatus(500);
+    })
+  ;
 });
 
 // Get matchups for team

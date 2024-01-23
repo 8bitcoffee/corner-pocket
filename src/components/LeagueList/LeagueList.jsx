@@ -44,7 +44,6 @@ function LeagueList(){
                             }
                         </div>
                         <br/>
-                        <hr/>
                     </div>
                 )})}
         </div>

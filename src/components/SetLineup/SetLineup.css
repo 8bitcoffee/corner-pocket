@@ -1,0 +1,17 @@
+.icon {
+    width:20px;
+}
+
+#submit-lineup-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#set-lineup-input-div {
+    margin-left: 15px;
+}
+
+#team-name, #subtitle {
+    text-align: center;
+}

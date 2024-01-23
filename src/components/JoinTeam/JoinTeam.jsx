@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Input } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import './JoinTeam.css';
 
 // Component showing details of the league
@@ -29,14 +31,24 @@ function JoinTeam(){
             <form id="join-team-form" onSubmit={handleSubmit}>
                 <label htmlFor="code-input">Enter Code (case-sensative)</label>
                 <br/><br/>
-                <input
+                <Input
+                    size="large"
+                    name="code-input"
+                    type="text"
+                    id="join-code-input"
+                    value={joinCode}
+                    onChange={handleChange}
+                    placeholder='Enter Code'
+                    maxLength={6}
+                />
+                {/* <input
                     name="code-input"
                     type="text"
                     value={joinCode}
                     onChange={handleChange}
                     placeholder='Enter Code'
                     maxLength={6}
-                ></input>
+                ></input> */}
                 <br/><br/>
                 <button className='btn'>Join Team</button>
             </form>
