@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom/';
 // Captain or league owner can set the lineup
 function SetLineup(props){
     const dispatch = useDispatch();
-    const history = useHistory
+    const history = useHistory();
     const roster = props.roster;
     const team = props.team;
     const info = props.info;
@@ -61,6 +61,7 @@ function SetLineup(props){
 
     const submitLineup = () => {
         if (lineup.includes("")){
+            console.log(lineup)
             return alert("All roster positions must be set.");
         }
         else if (toFindDuplicates(lineup)){
@@ -68,7 +69,7 @@ function SetLineup(props){
         }
         else {
             // dispatch({type: "SET_LINEUP", payload: lineup});
-            history.push('/home')
+            history.push('/home');
         }
     }
 
