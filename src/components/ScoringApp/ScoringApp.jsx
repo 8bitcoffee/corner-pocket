@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SetLineup from '../SetLineup/SetLineup.jsx';
 import './ScoringApp.css';
+import Scoresheet from '../Scoresheet/Scoresheet.jsx';
 
 // Base component for the scoring app
 // SetLineup, MatchView, and RoundView are all rendered from this component
@@ -37,15 +38,29 @@ function ScoringApp(){
     }
     else if(teamId == homeTeam && userId != homeCaptain && matchup.info[0].home_lineup_set == false){
         return (
-            <h2>Lineup not yet set. Talk to your captain!</h2>
+            <h4 className="lineup-not-set">Lineup not yet set. Talk to your captain!</h4>
         )
     }
     else if(teamId == awayTeam && userId != awayCaptain && matchup.info[0].away_lineup_set == false){
         return (
-            <h4 id="lineup-not-set">Lineup not yet set. Talk to your captain!</h4>
+            <h4 className="lineup-not-set">Lineup not yet set. Talk to your captain!</h4>
         )
     }
-    
+    else if(teamId == homeTeam && matchup.info[0].home_lineup_set == true && matchup.info[0].away_lineup_set == false){
+        return (
+            <h4 className="lineup-not-set">Opposing lineup not yet set.</h4>
+        )
+    }
+    else if(teamId == awayTeam && matchup.info[0].away_lineup_set == true && matchup.info[0].home_lineup_set == false){
+        return (
+            <h4 className="lineup-not-set">Opposing lineup not yet set.</h4>
+        )
+    }
+    else if((teamId == homeTeam || teamId == awayTeam) && matchup.info[0].away_lineup_set == true && matchup.info[0].home_lineup_set == true){
+        return(
+            <Scoresheet/>
+        )
+    }
 }
 
 export default ScoringApp;
