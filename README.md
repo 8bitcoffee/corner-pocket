@@ -99,24 +99,6 @@ Used in stretch goals
 
 -   Google Maps embedding
 
-# Project Milestones and Schedule
-
-| **Complete** | **Milestone**                   | **Hours Est** | **Due Date** | **Base or Stretch** |
-|--------------|---------------------------------|---------------|--------------|---------------------|
-| ☑            | Component scaffolding           | 2             | 12/24        | Base                |
-| ☑            | Make the login page.            | 4             | 12/27        | Base                |
-| ☑            | Router and query building       | 8             | 1/3          | Base                |
-| ☑            | Initial league creation process | 8             | 1/3          | Base                |
-| ☐            | Stats and Team views            | 8             | 1/6          | Base                |
-| ☐            | Scoring app - Set lineup        | 4             | 1/8          | Base                |
-| ☐            | Scoring app - Round view        | 4             | 1/8          | Base                |
-| ☐            | Scoring app - Match view        | 4             | 1/10         | Base                |
-| ☑            | Conditional styling             | 4             | 1/12         | Base                |
-| ☐            | Comments and README             | 4             | 1/16         | Base                |
-| ☐            | Calendar view                   | 8             | 1/18         | Stretch             |
-| ☐            | Google Account sign-in          | 8             | 1/21         | Stretch             |
-| ☐            | Recover password                | 6             | 1/24         | Stretch             |
-
 # Database Documentation
 
 [Database diagram:
