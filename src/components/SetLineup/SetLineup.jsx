@@ -69,7 +69,8 @@ function SetLineup(props){
         }
         else {
             // dispatch({type: "SET_LINEUP", payload: lineup});
-            history.push('/home');
+            // history.push('/home');
+            console.log(lineup);
         }
     }
 

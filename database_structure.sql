@@ -163,7 +163,9 @@ CREATE TABLE "teams_matchups"(
 CREATE TABLE "users_matchups"(
     "id" SERIAL PRIMARY KEY,
 	"user_id" BIGINT NOT NULL,
-	"matchup_id" BIGINT NOT NULL
+	"matchup_id" BIGINT NOT NULL,
+    "position" SMALLINT,
+    "team" VARCHAR(4)
 );
 
 -- Junction Table for scores by user for each game

@@ -25,8 +25,8 @@ function* getMatchup(action){
     }
 }
 
-function* matchupSaga(){
+function* getMatchupSaga(){
     yield takeLatest("FETCH_MATCHUP", getMatchup);
 }
 
-export default matchupSaga;
+export default getMatchupSaga;
